@@ -3,13 +3,15 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Shapes
 
+
 ApplicationWindow
 {
+
+    id: mainWindow
     visible: true
     width: 1024
     height: 600
     title: "My Qt Quick App"
-
 
     RowLayout
     {
@@ -70,6 +72,7 @@ ApplicationWindow
         {
 
         }
+
         MiddleRectangle
         {
 
@@ -82,3 +85,39 @@ ApplicationWindow
     }
 }
 
+// delegate: Rectangle
+// {
+//     color: assignmentDetails.pressed ? "#20ffffff" : "#1a1a2e"
+//     scale: assignmentDetails.pressed ? 0.9 : 1.0
+//     border.color: assignmentDetails.pressed ? "#20ffffff" : "white"
+//     width: 300
+//     height: 80
+//     radius: 8
+//     anchors.horizontalCenter: parent.horizontalCenter
+
+//     Text
+//     {
+//         anchors.centerIn: parent
+//         color: "white"
+//     }
+//     MouseArea
+//     {
+//         id: assignmentDetails
+//         anchors.fill: parent
+//         cursorShape: Qt.PointingHandCursor
+
+//         onClicked:
+//         {
+//             f.openDetails()
+//             assignmentPopup.open()
+//         }
+//     }
+//     Behavior on scale
+//     {
+//         NumberAnimation
+//         {
+//             duration: 100
+//             easing.type: Easing.OutBack // Adds a little "bounce" effect
+//         }
+//     }
+// }

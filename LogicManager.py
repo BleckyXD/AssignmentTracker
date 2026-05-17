@@ -18,6 +18,9 @@ class QMLManager (QObject):
     def leftChangePage(self):
         print("Change left")
 
+    @Slot()
+    def openDetails(self):
+        print("Details")
     # @Slot()
     # def rightChangePage(self):
 LogicManager = QMLManager()

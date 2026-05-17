@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="Creating modules">
-      <change afterPath="$PROJECT_DIR$/App/LeftRectangle.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/MainPage.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/MiddleRectangle.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/PageAdded.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/RightRectangle.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
+    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/RepeaterCode.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project.pyproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/LeftRectangle.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MainPage.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MiddleRectangle.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/PageAdded.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/RightRectangle.qml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/qmldir" beforeDir="false" afterPath="$PROJECT_DIR$/App/qmldir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LogicManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,26 +56,81 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.LogicManager.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.LogicManager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main (2).executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "Markdown"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Markdown&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\PROJECTS" />
       <recent name="C:\PROJECTS\App" />
     </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PROJECTS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="QML_IMPORT_PATH" value="C:\PROJECTS" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="PROJECTS" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="QML_IMPORT_PATH" value="C:\PROJECTS" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main (2)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -114,12 +171,21 @@
       <option name="project" value="LOCAL" />
       <updated>1777952637993</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Made progress on the UI and logic has been started.">
+      <option name="closed" value="true" />
+      <created>1778933875030</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778933875032</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new project" />
     <MESSAGE value="Creating modules" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating modules" />
+    <MESSAGE value="Made progress on the UI and logic has been started." />
+    <option name="LAST_COMMIT_MESSAGE" value="Made progress on the UI and logic has been started." />
   </component>
 </project>

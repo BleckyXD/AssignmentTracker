@@ -1,0 +1,14 @@
+{
+    "files": [
+        "main.py",
+        "LogicManager.py",
+        "App/main.qml",
+        "App/qmldir",
+        "App/MainBase/LeftSide/LeftRectangle.qml",
+        "App\MainBase\LeftSide\DetailPages\PageAdded.qml",
+	"App/MainBase/LeftSide/DetailPages/RepeaterCode.qml",
+        "App/MainBase/MainPage/MainPage.qml",
+        "App/MainBase/MiddleSide/MiddleRectangle.qml",
+        "App/MainBase/RightSide/RightRectangle.qml"
+    ]
+}
