@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/RepeaterCode.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project.pyproject" afterDir="false" />
+    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="More update on the logic side">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/LeftRectangle.qml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/MainPage.qml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/MiddleRectangle.qml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/PageAdded.qml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/RightRectangle.qml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/App/main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/qmldir" beforeDir="false" afterPath="$PROJECT_DIR$/App/qmldir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogicManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.pyproject" beforeDir="false" afterPath="$PROJECT_DIR$/project.pyproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,13 +171,22 @@
       <option name="project" value="LOCAL" />
       <updated>1778933875032</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="More update on the logic side">
+      <option name="closed" value="true" />
+      <created>1779039294480</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1779039294480</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new project" />
     <MESSAGE value="Creating modules" />
     <MESSAGE value="Made progress on the UI and logic has been started." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made progress on the UI and logic has been started." />
+    <MESSAGE value="More update on the logic side" />
+    <option name="LAST_COMMIT_MESSAGE" value="More update on the logic side" />
   </component>
 </project>

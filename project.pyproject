@@ -3,6 +3,7 @@
         "main.py",
         "LogicManager.py",
         "App/main.qml",
+	"App/LeftButtons.qml",
         "App/qmldir",
         "App/MainBase/LeftSide/LeftRectangle.qml",
         "App\MainBase\LeftSide\DetailPages\PageAdded.qml",

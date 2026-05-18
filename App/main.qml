@@ -12,9 +12,77 @@ ApplicationWindow
     width: 1024
     height: 600
     title: "My Qt Quick App"
+    // StackView {
+    //         id: pageStack
+    //         anchors.fill: parent
+
+    //         // This is the starting page when the app opens
+    //         initialItem: homePage
+    //     }
+
+    //     // 2. COMPONENT FOR PAGE 1: HOME PAGE
+    //     Component {
+    //         id: homePage
+
+    //         Rectangle {
+    //             color: "#1a1a2e"
+
+    //             ColumnLayout {
+    //                 anchors.centerIn: parent
+    //                 spacing: 20
+
+    //                 Text {
+    //                     text: "Home Screen"
+    //                     color: "white"
+    //                     font.pixelSize: 24
+    //                     Layout.alignment: Qt.AlignHCenter
+    //                 }
+
+    //                 Button {
+    //                     text: "Go to Details"
+    //                     Layout.preferredWidth: 200
+    //                     Layout.preferredHeight: 45
+
+    //                     // COMMAND: Push the details screen onto the stack
+    //                     onClicked: pageStack.push(detailsPage)
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     // 3. COMPONENT FOR PAGE 2: DETAILS PAGE
+    //     Component {
+    //         id: detailsPage
+
+    //         Rectangle {
+    //             color: "#16213e" // Different background color so you can see the change
+
+    //             ColumnLayout {
+    //                 anchors.centerIn: parent
+    //                 spacing: 20
+
+    //                 Text {
+    //                     text: "Details Screen"
+    //                     color: "white"
+    //                     font.pixelSize: 24
+    //                     Layout.alignment: Qt.AlignHCenter
+    //                 }
+
+    //                 Button {
+    //                     text: "Back to Home"
+    //                     Layout.preferredWidth: 200
+    //                     Layout.preferredHeight: 45
+
+    //                     // COMMAND: Remove this screen and slide back down to Home
+    //                     onClicked: pageStack.push(detailsPage)
+    //                 }
+    //             }
+    //         }
+    //     }
 
     RowLayout
     {
+        id: classTemplate
         anchors.fill: parent
         anchors.margins: 12
         spacing: 12
@@ -84,6 +152,35 @@ ApplicationWindow
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // delegate: Rectangle
 // {
