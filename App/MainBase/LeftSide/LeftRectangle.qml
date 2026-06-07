@@ -6,7 +6,8 @@ import App
 
 Rectangle
 {
-    Layout.preferredWidth: 300
+    id: leftRectangle
+    Layout.fillWidth: true
     Layout.fillHeight: true
     radius: 8
 
@@ -65,7 +66,7 @@ Rectangle
                 {
                     id: addingPage
                     cursorShape: Qt.PointingHandCursor
-                    onTapped: rectModel.append({})
+                    onTapped: rectModel.append({"pageId": Date.now().toString()})
                 }
                 Shape
                 {
@@ -93,9 +94,49 @@ Rectangle
                     }
                 }
             }
+            Rectangle
+            {
+                id: saveData
+                function saveAssignments()
+                {
+                    var assignmentData = []
+
+                    for (var i = 0; i < rectModel.count; i++)
+                    {
+                        assignmentData.push({"page_id": rectModel.get(i).pageId,
+                                             "info": rectModel.get(i).info})
+                    }
+
+                    f.saveData(assignmentData)
+                }
+
+                color: savePage.pressed ? "#20ffffff" : "white"
+                scale: savePage.pressed ? 0.9 : 1.0
+                border.color: savePage.pressed ? "green": "white"
+                Layout.preferredWidth: 50
+                Layout.preferredHeight: 50
+                Layout.alignment: Qt.AlignCenter
+                radius: width / 2
+
+                TapHandler
+                {
+                    id: savePage
+                    cursorShape: Qt.PointingHandCursor
+                    onTapped: saveData.saveAssignments()
+
+                }
+
+                Behavior on scale
+                {
+                    NumberAnimation
+                    {
+                        duration: 100
+                        easing.type: Easing.OutBack // Adds a little "bounce" effect
+                    }
+                }
+            }
+
         }
     }
 }
-
-
 

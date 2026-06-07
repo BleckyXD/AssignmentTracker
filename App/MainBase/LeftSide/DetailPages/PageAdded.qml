@@ -8,7 +8,7 @@ import QtQuick.Controls
 Rectangle
 {
     id: mainLeftRectangle
-    width: 300
+    width: leftRectangle.width
     height: 80
     color: assignmentDetails.pressed ? "#401a1a2e" : "#1a1a2e"
     scale: assignmentDetails.pressed ? 0.9 : 1.0
@@ -70,10 +70,11 @@ Rectangle
 
         contentItem: ColumnLayout
         {
+
             TextField
             {
                 id: titleInput
-
+                text: rectModel.info
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 228
                 placeholderText: "Enter assignment title..."
@@ -92,6 +93,10 @@ Rectangle
                     color: "gray"
                     border.color: "dark green"
                     radius: 8
+                }
+                onTextEdited:
+                {
+                    rectModel.setProperty(index, "info", text)
                 }
             }
             Item

@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="More update on the logic side">
+    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="Updated the Left block for details">
+      <change afterPath="$PROJECT_DIR$/App/GeneralPageCreate.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/RightButtons.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" beforeDir="false" afterPath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/LeftButtons.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/LeftButtons.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/PageAdded.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/PageAdded.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/qmldir" beforeDir="false" afterPath="$PROJECT_DIR$/App/qmldir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LogicManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project.pyproject" beforeDir="false" afterPath="$PROJECT_DIR$/project.pyproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,30 +57,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.LogicManager.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.CodeAcademy.executor": "Run",
+    "Python.LogicManager.executor": "Run",
+    "Python.main (2).executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Markdown&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Markdown"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\PROJECTS" />
       <recent name="C:\PROJECTS\App" />
+      <recent name="C:\PROJECTS" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main (2)">
     <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PROJECTS" />
       <option name="ENV_FILES" value="" />
@@ -179,14 +189,34 @@
       <option name="project" value="LOCAL" />
       <updated>1779039294480</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated the Left block for details">
+      <option name="closed" value="true" />
+      <created>1779113810319</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1779113810319</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new project" />
     <MESSAGE value="Creating modules" />
     <MESSAGE value="Made progress on the UI and logic has been started." />
     <MESSAGE value="More update on the logic side" />
-    <option name="LAST_COMMIT_MESSAGE" value="More update on the logic side" />
+    <MESSAGE value="Updated the Left block for details" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the Left block for details" />
   </component>
 </project>

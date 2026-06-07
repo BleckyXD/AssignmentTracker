@@ -1,6 +1,9 @@
 module App
 main 1.0 main.qml
-LeftButtons 1.0 App/LeftButtons.qml
+
+RightButtons 1.0 RightButtons.qml
+LeftButtons 1.0 LeftButtons.qml
+GeneralPageCreate 1.0 GeneralPageCreate.qml
 LeftRectangle 1.0 MainBase/LeftSide/LeftRectangle.qml
 PageAdded 1.0 MainBase/LeftSide/DetailPages/PageAdded.qml
 RepeaterCode 1.0 MainBase/LeftSide/DetailPages/RepeaterCode.qml

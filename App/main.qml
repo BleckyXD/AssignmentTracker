@@ -12,145 +12,132 @@ ApplicationWindow
     width: 1024
     height: 600
     title: "My Qt Quick App"
-    // StackView {
-    //         id: pageStack
-    //         anchors.fill: parent
 
-    //         // This is the starting page when the app opens
-    //         initialItem: homePage
-    //     }
+    SwipeView {
+        id: view
 
-    //     // 2. COMPONENT FOR PAGE 1: HOME PAGE
-    //     Component {
-    //         id: homePage
-
-    //         Rectangle {
-    //             color: "#1a1a2e"
-
-    //             ColumnLayout {
-    //                 anchors.centerIn: parent
-    //                 spacing: 20
-
-    //                 Text {
-    //                     text: "Home Screen"
-    //                     color: "white"
-    //                     font.pixelSize: 24
-    //                     Layout.alignment: Qt.AlignHCenter
-    //                 }
-
-    //                 Button {
-    //                     text: "Go to Details"
-    //                     Layout.preferredWidth: 200
-    //                     Layout.preferredHeight: 45
-
-    //                     // COMMAND: Push the details screen onto the stack
-    //                     onClicked: pageStack.push(detailsPage)
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // 3. COMPONENT FOR PAGE 2: DETAILS PAGE
-    //     Component {
-    //         id: detailsPage
-
-    //         Rectangle {
-    //             color: "#16213e" // Different background color so you can see the change
-
-    //             ColumnLayout {
-    //                 anchors.centerIn: parent
-    //                 spacing: 20
-
-    //                 Text {
-    //                     text: "Details Screen"
-    //                     color: "white"
-    //                     font.pixelSize: 24
-    //                     Layout.alignment: Qt.AlignHCenter
-    //                 }
-
-    //                 Button {
-    //                     text: "Back to Home"
-    //                     Layout.preferredWidth: 200
-    //                     Layout.preferredHeight: 45
-
-    //                     // COMMAND: Remove this screen and slide back down to Home
-    //                     onClicked: pageStack.push(detailsPage)
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    RowLayout
-    {
-        id: classTemplate
+        currentIndex: 0
         anchors.fill: parent
-        anchors.margins: 12
-        spacing: 12
 
-         //Circle
-        Rectangle
+
+        Repeater
         {
-            Layout.preferredWidth: 50
-            Layout.preferredHeight: 50
-
-            radius: width / 2
-
-            color: leftPage.pressed ? "#20ffffff" : "white"
-            scale: leftPage.pressed ? 0.9 : 1.0
-            border.color: leftPage.pressed ? "green": "white"
-            Shape
+            model: generalPages
+            delegate:Component
             {
-                anchors.fill: parent
-                antialiasing: true
+                id: wholeTemplate
 
-                ShapePath
+                RowLayout
                 {
-                    strokeColor: "gray"
-                    strokeWidth: 4
-                    fillColor: "transparent"
-                    capStyle: ShapePath.RoundCap // Makes the ends round instead of square
-                    joinStyle: ShapePath.RoundJoin // Smoothes the "V" joint
-                    startX: 30; startY: 10
-                    PathLine { x:15 ; y:25 }
-                    PathLine { x:30 ; y:40 }
-                    // PathLine { x:40 ; y:15 }
+                    id: classTemplate
+                    width: view.width
+                    height: view.height
 
-                }
-            }
-            MouseArea
-            {
-                id: leftPage
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
+                    LeftButtons
+                    {
 
-                // Sending action to Python
-                onClicked: f.leftChangePage()// Calling Python Slot
-            }
-            Behavior on scale
-            {
-                NumberAnimation
-                {
-                    duration: 100
-                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                    }
+                     //Circle
+                    LeftRectangle
+                    {
+
+                    }
+                    MiddleRectangle
+                    {
+
+                    }
+                    RightRectangle
+                    {
+
+                    }
+                    RightButtons
+                    {
+
+                    }
+
                 }
             }
         }
 
-        LeftRectangle
+
+
+    }
+    ListModel
+    {
+        id: generalPages
+    }
+    //Once everything that is before is completed and loaded, this runs
+    Component.onCompleted:
+    {
+        if (generalPages.count === 0)
         {
-
-        }
-
-        MiddleRectangle
-        {
-
-        }
-
-        RightRectangle
-        {
-
+            var uniqueID = Date.now().toString()
+            generalPages.append({})
+            f.initializeData({uniqueID: {"Assignments": {}}})
         }
     }
+
+
+
+
+    // ListModel
+    // {
+    //     id: templateData
+    //     ListElement { pageTitle: "Assignment 1"; pageColor: "teal" }
+    // }
+
+    // Component
+    // {
+    //     id: completeUI
+    //     RowLayout
+    //     {
+    //         id: classTemplate
+    //         width: template.width
+    //         height: template.height
+
+    //         LeftButtons
+    //         {
+
+    //         }
+    //          //Circle
+    //         LeftRectangle
+    //         {
+
+    //         }
+    //         MiddleRectangle
+    //         {
+
+    //         }
+    //         RightRectangle
+    //         {
+
+    //         }
+    //     }
+    // }
+    // ListView
+    // {
+    //     id: template
+    //     model: templateData
+    //     anchors.fill: parent
+
+    //     // Correct Syntax:
+    //     delegate: completeUI
+    //     anchors.margins: 5
+
+    //     orientation: ListView.Horizontal
+    //     snapMode: ListView.SnapOneItem
+    //     clip: true
+
+    //     highlightRangeMode: ListView.ApplyRange
+
+    //     preferredHighlightBegin: 0
+    //     preferredHighlightEnd: width
+
+    //     highlightMoveDuration: 150    // Lower = Faster (150ms is very snappy)
+    //     highlightMoveVelocity: -1
+
+
+    // }
 }
 
 
@@ -179,42 +166,3 @@ ApplicationWindow
 
 
 
-
-
-
-// delegate: Rectangle
-// {
-//     color: assignmentDetails.pressed ? "#20ffffff" : "#1a1a2e"
-//     scale: assignmentDetails.pressed ? 0.9 : 1.0
-//     border.color: assignmentDetails.pressed ? "#20ffffff" : "white"
-//     width: 300
-//     height: 80
-//     radius: 8
-//     anchors.horizontalCenter: parent.horizontalCenter
-
-//     Text
-//     {
-//         anchors.centerIn: parent
-//         color: "white"
-//     }
-//     MouseArea
-//     {
-//         id: assignmentDetails
-//         anchors.fill: parent
-//         cursorShape: Qt.PointingHandCursor
-
-//         onClicked:
-//         {
-//             f.openDetails()
-//             assignmentPopup.open()
-//         }
-//     }
-//     Behavior on scale
-//     {
-//         NumberAnimation
-//         {
-//             duration: 100
-//             easing.type: Easing.OutBack // Adds a little "bounce" effect
-//         }
-//     }
-// }
