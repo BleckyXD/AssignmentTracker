@@ -47,7 +47,10 @@ ColumnLayout
             // Sending action to Python
             onClicked:
             {
-                template.currentIndex = template.count + 1
+                if (view.currentIndex > 0)
+                {
+                    view.currentIndex--
+                }
             }
 
         }

@@ -54,6 +54,30 @@ Rectangle
             }
             Rectangle
             {
+                id: saveData
+                function saveAssignmentsJSON()
+                {
+                    var assignmentData = {}
+
+                    // for (var i = 0; i < rectModel.count; i++)
+                    // {
+                    //     var currentItem = rectModel.get(i)
+                    //     var key = Math.floor(currentItem.assignmentIndex).toString()
+                    //     assignmentData[key] = {"title": currentItem.title,
+                    //                            "status": currentItem.status,
+                    //                            "time": currentItem.time}
+                    // }
+                        var i = rectModel.count - 1
+                        var currentItem = rectModel.get(i)
+                        var key = Math.floor(currentItem.assignmentIndex).toString()
+                        assignmentData[key] = {"title": currentItem.title,
+                                               "status": currentItem.status,
+                                               "time": currentItem.time}
+
+
+
+                    f.saveAssignmentData(assignmentData)
+                }
                 color: addingPage.pressed ? "#20ffffff" : "white"
                 scale: addingPage.pressed ? 0.9 : 1.0
                 border.color: addingPage.pressed ? "green": "white"
@@ -64,9 +88,19 @@ Rectangle
 
                 TapHandler
                 {
+                    // "pageId": Date.now().toString()
                     id: addingPage
                     cursorShape: Qt.PointingHandCursor
-                    onTapped: rectModel.append({"pageId": Date.now().toString()})
+                    onTapped:
+                    {
+                        rectModel.append({"title": "empty",
+                                          "assignmentIndex": rectModel.count,
+                                          "status": "",
+                                          "time": ""})
+
+                        saveData.saveAssignmentsJSON()
+                    }
+
                 }
                 Shape
                 {
@@ -94,47 +128,50 @@ Rectangle
                     }
                 }
             }
-            Rectangle
-            {
-                id: saveData
-                function saveAssignments()
-                {
-                    var assignmentData = []
+            // Rectangle
+            // {
+            //     id: saveData
+            //     function saveAssignmentsJSON()
+            //     {
+            //         var assignmentData = {}
 
-                    for (var i = 0; i < rectModel.count; i++)
-                    {
-                        assignmentData.push({"page_id": rectModel.get(i).pageId,
-                                             "info": rectModel.get(i).info})
-                    }
+            //         for (var i = 0; i < rectModel.count; i++)
+            //         {
+            //             var currentItem = rectModel.get(i)
+            //             var key = Math.floor(currentItem.assignmentIndex).toString()
+            //             assignmentData[key] = {"info": currentItem.info,
+            //                                    "status": currentItem.status,
+            //                                    "time": currentItem.time}
+            //          }
 
-                    f.saveData(assignmentData)
-                }
+            //         f.saveAssignmentData(assignmentData)
+            //     }
 
-                color: savePage.pressed ? "#20ffffff" : "white"
-                scale: savePage.pressed ? 0.9 : 1.0
-                border.color: savePage.pressed ? "green": "white"
-                Layout.preferredWidth: 50
-                Layout.preferredHeight: 50
-                Layout.alignment: Qt.AlignCenter
-                radius: width / 2
+            //     color: savePage.pressed ? "#20ffffff" : "white"
+            //     scale: savePage.pressed ? 0.9 : 1.0
+            //     border.color: savePage.pressed ? "green": "white"
+            //     Layout.preferredWidth: 50
+            //     Layout.preferredHeight: 50
+            //     Layout.alignment: Qt.AlignCenter
+            //     radius: width / 2
 
-                TapHandler
-                {
-                    id: savePage
-                    cursorShape: Qt.PointingHandCursor
-                    onTapped: saveData.saveAssignments()
+            //     TapHandler
+            //     {
+            //         id: savePage
+            //         cursorShape: Qt.PointingHandCursor
+            //         onTapped: saveData.saveAssignmentsJSON()
 
-                }
+            //     }
 
-                Behavior on scale
-                {
-                    NumberAnimation
-                    {
-                        duration: 100
-                        easing.type: Easing.OutBack // Adds a little "bounce" effect
-                    }
-                }
-            }
+            //     Behavior on scale
+            //     {
+            //         NumberAnimation
+            //         {
+            //             duration: 100
+            //             easing.type: Easing.OutBack // Adds a little "bounce" effect
+            //         }
+            //     }
+            // }
 
         }
     }

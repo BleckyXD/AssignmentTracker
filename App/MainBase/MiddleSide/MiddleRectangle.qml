@@ -36,6 +36,8 @@ Rectangle
             {
                 if (!activeFocus)
                 {
+                    // f.title({"pageId": Date.now().toString(),
+                    //          "class_title":classTitle.text})
                     f.title(classTitle.text)
                 }
 
@@ -92,22 +94,13 @@ Rectangle
                 font.pixelSize: 16
             }
         }
-        // TabBar {
-        //     id: tabBar
-        //     currentIndex: view.currentIndex
+        PageIndicator {
+            id: control
+            count: view.count          // Total number of assignment categories
+            currentIndex:view.currentIndex   // Start at the first one
 
-        //     TabButton
-        //     {
-        //         text: "Page 1"
-        //     }
-        //     TabButton
-        //     {
-        //         text: "Page 2"
-        //     }
-        //     TabButton
-        //     {
-        //         text: "Page 3"
-        //     }
-        // }
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
 }
