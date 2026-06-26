@@ -1,5 +1,4 @@
 from PySide6.QtCore import QObject, Slot, Signal, Property
-from PySide6.QtCore import QObject
 import json
 import pygame as pg
 import os
@@ -8,24 +7,21 @@ import shutil
 from tkinter import filedialog
 from pathlib import Path
 from PySide6.QtCore import QTimer
-# import MP3Player.mp3MainControl as mp3
-
-
-
+from datetime import datetime as dt
+from zoneinfo import ZoneInfo as zi
 
 class QMLManager (QObject):
 
     musicListChanged = Signal()
-    # songTimeChanged = Signal(int)
-    # songPositionChanged = Signal(int)
     songDurationChanged = Signal()
     msSongDurationChanged = Signal()
     currentSongTime = Signal()
     changeSongTime = Signal()
     updateSlideBar = Signal()
 
+    updateClock = Signal()
 
-
+    updateColors = Signal()
 
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
@@ -38,147 +34,96 @@ class QMLManager (QObject):
         self.currentTime = 0
 
 
-
-        pg.init()
-        self.playing = True
-        self.m = pg.mixer.music
-        self.songTimePosition = 0
-
-        self.m.set_volume(0.1)
-        self.songList = {}
-
         self.files = musicFilesManager(self)
         self.audio = musicManager(self)
 
-        self.totalSongDuration = "00:00"
-        self.msSongDuration = 0
-        self.currentSongIndex = 0
-        self.songProgress = 0
-        self.currentTimerTime = "00:00"
-        self.timePosition = 0
-        self.currentMsPosition = 0
+        self.clockTimer = QTimer(self)
+        self.clockTimer.setInterval(1000)
+        self.clockTimer.timeout.connect(self.clock)
+
+        self.colorsSelected = {"Main Background": "#16213e", "Border Color": "White",
+                               "Info Rectangle": "black", "Buttons": "blue", "Clock": "#16213e",
+                               "MP3 Slider": "red", "MP3 Slider Background": "black"}
+
+
+
 
     @Property(list, notify=musicListChanged)
-    def musicList(self):
-        return self.audio.songs()
+    def musicList(self): return self.audio.songs()
 
     @Property(str, notify=songDurationChanged)
-    def songDuration(self):
-        return self.totalSongDuration
+    def songDuration(self): return self.audio.totalSongDuration
 
     @Property(int, notify=msSongDurationChanged)
-    def msDuration(self):
-        return self.msSongDuration
+    def msDuration(self): return self.audio.msSongDuration
 
     @Property(str, notify=currentSongTime)
-    def getMusicTime(self):
-
-        return self.currentTimerTime
+    def getMusicTime(self): return self.audio.currentTimerTime
 
     @Property(str, notify=changeSongTime)
-    def changeMusicTime(self):
-        return self.currentTimerTime
+    def changeMusicTime(self): return self.audio.currentTimerTime
 
     @Property(int, notify=updateSlideBar)
-    def slideBar(self):
-        return  self.currentMsPosition
+    def slideBar(self): return  self.audio.currentMsPosition
 
     @Slot(str, str)
     def loadSongs(self, songName, songPosition):
         selectedSong = f"MP3Player/files/{songName}.mp3"
-        self.currentSongIndex = songPosition
-        self.m.load(selectedSong)
+        self.audio.currentSongIndex = songPosition
+        self.audio.m.load(selectedSong)
 
-        for key, value in self.songList.items():
+        for key, value in self.audio.songList.items():
             if str(value["audio"]) == songName:
-                self.totalSongDuration = value["duration"]
-                self.msSongDuration = value["ms duration"]
+                self.audio.totalSongDuration = value["duration"]
+                self.audio.msSongDuration = value["ms duration"]
 
-        self.songTimePosition = 0
+        self.audio.songTimePosition = 0
         self.songDurationChanged.emit()
         self.msSongDurationChanged.emit()
         self.updateSlideBar.emit()
 
         # self.progressBar.setRange(0, self.data[f"song{index + 1}"]["ms duration"])
-        print(self.msSongDuration)
+        print(self.audio.msSongDuration)
         self.audio.timer.start()
 
-
-
-        self.m.play()
-
-
+        self.audio.m.play()
 
 
     @Slot()
-    def sliderSongTime(self):
-        self.audio.timer.stop()
-        # time = self.mp3Class.updateSlideBar()
-
-    def updateSlider(self):
-        # self.sendTime.emit(self.currentTime)
-        pass
+    def sliderSongTime(self): self.audio.timer.stop()
 
     @Slot()
     def playPause(self):
 
-        if self.playing:
-            self.m.pause()
-            self.playing = False
+        if self.audio.playing:
+            self.audio.m.pause()
+            self.audio.playing = False
             self.audio.timer.stop()
         else:
-            self.m.unpause()
-            self.playing = True
+            self.audio.m.unpause()
+            self.audio.playing = True
             self.audio.timer.start()
 
     @Slot()
-    def openFile(self):
-        self.files.chooseFile()
-
-
-    def updateSongTime(self):
-        time = int(self.m.get_pos() + self.songTimePosition)
-        self.currentMsPosition = time
-        if time >= int(self.msSongDuration) or self.m.get_pos() == -1:
-            self.audio.timer.stop()
-
-            self.currentMsPosition = 0
-            return
-
-        else:
-            self.audio.timer.start()
-            minutes = int((time / 1000) / 60)
-            seconds = int((time / 1000) % 60)
-            self.currentTimerTime = str("{:0}:{:02d}".format(minutes, seconds))
-
-            self.currentSongTime.emit()
-            self.updateSlideBar.emit()
-
-        print(self.currentMsPosition)
-
+    def openFile(self): self.files.chooseFile()
 
     @Slot(int)
     def sliderCurrentTime(self, time):
-        self.songTimePosition = time
+        self.audio.songTimePosition = time
         self.audio.timer.stop()
         minutes = int((time / 1000) / 60)
         seconds = int((time / 1000) % 60)
-        self.currentTimerTime = str("{:0}:{:02d}".format(minutes, seconds))
+        self.audio.currentTimerTime = str("{:0}:{:02d}".format(minutes, seconds))
         self.currentSongTime.emit()
 
     @Slot()
     def continueTimer(self):
         self.audio.timer.start()
-        self.m.play(start=(self.songTimePosition/ 1000))
+        self.audio.m.play(start=(self.audio.songTimePosition/ 1000))
 
     # ==================================================================================================================
     # ==================================================================================================================
     #==================================================================================================================
-
-    def SAVE(self):
-        with open("assignmentData.json", "w") as f:
-            json.dump(self.info, f, indent=4)
-        print("File Saved!")
 
     #Obtain the current index of the page
     @Slot(int)
@@ -196,17 +141,19 @@ class QMLManager (QObject):
         print(f"Page: {self.currentPage} \nAssignment: {self.assignmentIndex}")
 
 
+
+
     #Create a space for the data of a new page
     @Slot(int)
     def newPage(self, data):
 
         #Declare the dictionary for saving the information
-        self.info[data] = {"Class Title": "", "Assignments": {}}
+        self.info[data] = {"Class Title": "", "Class Details": "", "TodoList": {}, "Assignments": {}}
 
         print(self.info)
 
         #Save the new dictionary
-        self.SAVE()
+        self.files.SAVE()
 
     #Save the assignment data.
     @Slot(dict)
@@ -214,13 +161,13 @@ class QMLManager (QObject):
         self.info[self.currentPage]["Assignments"].update(data)
         print(data)
 
-        self.SAVE()
+        self.files.SAVE()
 
     @Slot(str)
     def assignmentTitle(self, title):
         self.info[self.currentPage]["Assignments"][self.assignmentIndex]["title"] = title
 
-        self.SAVE()
+        self.files.SAVE()
 
 
     @Slot(str)
@@ -229,7 +176,7 @@ class QMLManager (QObject):
 
         print(status)
 
-        self.SAVE()
+        self.files.SAVE()
 
     #Save the title of the page
     @Slot(str)
@@ -240,19 +187,80 @@ class QMLManager (QObject):
 
         #Save the information of the assignments
 
-        self.SAVE()
+        self.files.SAVE()
 
     @Slot(str)
     def saveTime(self, time):
         self.info[self.currentPage]["Assignments"][self.assignmentIndex]["time"] = time
 
-        self.SAVE()
+        self.files.SAVE()
+
+    @Slot(str)
+    def classDetails(self, details):
+        self.info[self.currentPage]["Class Details"] = details
+
+        self.files.SAVE()
+
+    @Slot(dict)
+    def classTodoList(self, todo):
+        self.info[self.currentPage]["TodoList"].update(todo)
+
+        self.files.SAVE()
+
+    @Slot(str, str)
+    def specificTodoList(self, toDoInfo, todoIndex):
+
+        self.info[self.currentPage]["TodoList"][todoIndex]["todoInfo"] = toDoInfo
+
+        self.files.SAVE()
+
+    @Slot()
+    def startClockTimer(self):
+        self.clockTimer.start()
+        self.updateColors.emit()
+        print("STARTS")
+
+
+    @Property(str, notify=updateClock)
+    def clockUpdate(self):
+        return dt.now().strftime("%#I:%M:%S %p")
+
+    def clock(self):
+        self.updateClock.emit()
+
+
+
+
+    @Slot(str, str)
+    def receiveOptionColor(self, currentOption, color):
+        self.colorsSelected[currentOption] = color
+        print(self.colorsSelected)
+        self.updateColors.emit()
+
+
+
+
+
+    @Property(dict, notify=updateColors)
+    def sendingColors(self):
+        print("sending colors")
+        return self.colorsSelected
+
+
+
+
+
 
 
 
 class musicFilesManager:
     def __init__(self, main_app):
         self.main = main_app
+
+    def SAVE(self):
+        with open("assignmentData.json", "w") as f:
+            json.dump(self.main.info, f, indent=4)
+        print("File Saved!")
 
     def setFile(self):
         files = os.listdir("C:/PROJECTS/MP3Player/files")
@@ -266,7 +274,7 @@ class musicFilesManager:
             ms = int(duration_seconds * 1000)
             minutes = int((ms / 1000) / 60)
             seconds = int((ms / 1000) % 60)
-            duration = f"{minutes:02d}:{seconds:02d}"
+            duration = f"{minutes:0}:{seconds:02d}"
 
             firstKey = f"song{i}"
             songs.update(
@@ -286,6 +294,9 @@ class musicFilesManager:
         # self.songs = songs
 
         return songs
+
+    def mList(self):
+        return self.main.audio.songs()
 
     def chooseFile(self):
 
@@ -321,7 +332,7 @@ class musicFilesManager:
         shutil.copy(sourcePath, destinationPath)
 
         print(f"File moved from {sourcePath} to {destinationPath}")
-        self.main.musicList()
+        self.mList()
 
         self.main.musicListChanged.emit()
 
@@ -329,19 +340,62 @@ class musicManager:
     def __init__(self, main_app):
         self.main = main_app
 
+        pg.init()
+        self.m = pg.mixer.music
+        self.m.set_volume(0.1)
+
         self.timer = QTimer()
         self.timer.setInterval(200)
-        self.timer.timeout.connect(self.main.updateSongTime)
+        self.timer.timeout.connect(self.updateSongTime)
+
+        self.songList = {}
+        self.playing = True
+
+        self.totalSongDuration = "0:00"
+        self.msSongDuration = 0
+        self.currentSongIndex = 0
+        #self.songProgress = 0
+        self.currentTimerTime = "0:00"
+        #self.timePosition = 0
+        self.songTimePosition = 0
+        self.currentMsPosition = 0
 
     def songs(self):
-        self.main.songList = self.main.files.setFile()
-        music = (list(self.main.songList.values()))
+        self.songList = self.main.files.setFile()
+        music = (list(self.songList.values()))
         print("activated!")
 
         return music
 
     def time(self):
         pass
+    def updateSongTime(self):
+        time = int(self.m.get_pos() + self.songTimePosition)
+        self.currentMsPosition = time
+        print(self.totalSongDuration)
+        if time >= int(self.msSongDuration) or self.m.get_pos() == -1:
+            self.main.audio.timer.stop()
+
+            self.currentMsPosition = int(self.msSongDuration)
+            self.currentTimerTime = str(self.totalSongDuration)
+
+
+            self.main.currentSongTime.emit()
+            self.main.updateSlideBar.emit()
+
+            self.currentMsPosition = 0
+            return
+
+        else:
+            self.main.audio.timer.start()
+            minutes = int((time / 1000) / 60)
+            seconds = int((time / 1000) % 60)
+            self.currentTimerTime = str("{:0}:{:02d}".format(minutes, seconds))
+
+            self.main.currentSongTime.emit()
+            self.main.updateSlideBar.emit()
+
+        print(self.currentMsPosition)
 
 
 LogicManager = QMLManager()

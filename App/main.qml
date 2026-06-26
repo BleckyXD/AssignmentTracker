@@ -14,6 +14,15 @@ ApplicationWindow
     title: "My Qt Quick App"
     color: "green"
 
+    ColorManagement { id: globalTheme }
+    StackView
+    {
+        id: generalController
+        anchors.fill: parent
+        initialItem: view
+    }
+
+
     SwipeView
     {
         id: view
@@ -35,10 +44,7 @@ ApplicationWindow
                     width: view.width
                     height: view.height
 
-                    LeftButtons
-                    {
 
-                    }
                      //Circle
                     LeftRectangle
                     {
@@ -60,11 +66,18 @@ ApplicationWindow
                 }
             }
         }
-    onCurrentIndexChanged:
+        onCurrentIndexChanged:
+        {
+            f.retrieveIndex(view.currentIndex)
+        }
+    }
+    Loader
     {
-        f.retrieveIndex(view.currentIndex)
+        id: settingsLoader
+        anchors.fill: parent
+        // It starts completely empty ("Null" status)
     }
-    }
+
     ListModel
     {
         id: generalPages
@@ -72,6 +85,8 @@ ApplicationWindow
     //Once everything that is before is completed and loaded, this runs
     Component.onCompleted:
     {
+        f.startClockTimer()
+
         if (generalPages.count === 0)
         {
             // var uniqueID = Date.now().toString()
@@ -80,6 +95,7 @@ ApplicationWindow
             f.newPage(1)
             // f.initializeData("1")
         }
+
     }
 
 

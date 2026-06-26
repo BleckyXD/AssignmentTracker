@@ -6,8 +6,6 @@ import QtQuick.Shapes
 //Adding Pages
 ColumnLayout
 {
-
-
     //Moving Left
     Rectangle
     {

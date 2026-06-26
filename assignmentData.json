@@ -1,6 +1,26 @@
 {
     "1": {
         "Class Title": "",
-        "Assignments": {}
+        "Class Details": "",
+        "TodoList": {
+            "0": {
+                "todoInfo": ""
+            },
+            "1": {
+                "todoInfo": ""
+            }
+        },
+        "Assignments": {
+            "0": {
+                "status": "",
+                "time": "",
+                "title": "empty"
+            },
+            "1": {
+                "status": "",
+                "time": "",
+                "title": "empty"
+            }
+        }
     }
 }

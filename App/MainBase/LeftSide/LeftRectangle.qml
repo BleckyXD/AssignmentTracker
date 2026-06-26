@@ -13,8 +13,9 @@ Rectangle
 
 
 
-    color: "#80252323"
-    border.color: "white"
+    color: globalTheme.backgroundRectangleMain
+    border.color: globalTheme.borderColor
+    border.width: 3
 
     Flickable
     {
@@ -59,14 +60,6 @@ Rectangle
                 {
                     var assignmentData = {}
 
-                    // for (var i = 0; i < rectModel.count; i++)
-                    // {
-                    //     var currentItem = rectModel.get(i)
-                    //     var key = Math.floor(currentItem.assignmentIndex).toString()
-                    //     assignmentData[key] = {"title": currentItem.title,
-                    //                            "status": currentItem.status,
-                    //                            "time": currentItem.time}
-                    // }
                         var i = rectModel.count - 1
                         var currentItem = rectModel.get(i)
                         var key = Math.floor(currentItem.assignmentIndex).toString()
@@ -78,9 +71,9 @@ Rectangle
 
                     f.saveAssignmentData(assignmentData)
                 }
-                color: addingPage.pressed ? "#20ffffff" : "white"
+                color: addingPage.pressed ? "#20ffffff" : globalTheme.buttons
                 scale: addingPage.pressed ? 0.9 : 1.0
-                border.color: addingPage.pressed ? "green": "white"
+                border.color: addingPage.pressed ? "green": globalTheme.borderColor
                 Layout.preferredWidth: 50
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignCenter
@@ -128,51 +121,6 @@ Rectangle
                     }
                 }
             }
-            // Rectangle
-            // {
-            //     id: saveData
-            //     function saveAssignmentsJSON()
-            //     {
-            //         var assignmentData = {}
-
-            //         for (var i = 0; i < rectModel.count; i++)
-            //         {
-            //             var currentItem = rectModel.get(i)
-            //             var key = Math.floor(currentItem.assignmentIndex).toString()
-            //             assignmentData[key] = {"info": currentItem.info,
-            //                                    "status": currentItem.status,
-            //                                    "time": currentItem.time}
-            //          }
-
-            //         f.saveAssignmentData(assignmentData)
-            //     }
-
-            //     color: savePage.pressed ? "#20ffffff" : "white"
-            //     scale: savePage.pressed ? 0.9 : 1.0
-            //     border.color: savePage.pressed ? "green": "white"
-            //     Layout.preferredWidth: 50
-            //     Layout.preferredHeight: 50
-            //     Layout.alignment: Qt.AlignCenter
-            //     radius: width / 2
-
-            //     TapHandler
-            //     {
-            //         id: savePage
-            //         cursorShape: Qt.PointingHandCursor
-            //         onTapped: saveData.saveAssignmentsJSON()
-
-            //     }
-
-            //     Behavior on scale
-            //     {
-            //         NumberAnimation
-            //         {
-            //             duration: 100
-            //             easing.type: Easing.OutBack // Adds a little "bounce" effect
-            //         }
-            //     }
-            // }
-
         }
     }
 }

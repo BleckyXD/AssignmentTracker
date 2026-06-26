@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="Progress has been made. Changed to SwipeView and not working on load and save logic">
-      <change afterPath="$PROJECT_DIR$/MP3Player/fileControl.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MP3Player/mp3MainControl.py" afterDir="false" />
+    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="NEW CHANGES">
+      <change afterPath="$PROJECT_DIR$/App/ColorManagement.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/Settings.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting2.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting3.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting4.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting5.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting6.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/settingsLoad/ThemeManagement.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/songData.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" beforeDir="false" afterPath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/LeftButtons.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/LeftButtons.qml" afterDir="false" />
@@ -14,10 +21,11 @@
       <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/RightButtons.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/RightButtons.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/qmldir" beforeDir="false" afterPath="$PROJECT_DIR$/App/qmldir" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LogicManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentData.json" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.pyproject" beforeDir="false" afterPath="$PROJECT_DIR$/project.pyproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780795218927</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="NEW CHANGES">
+      <option name="closed" value="true" />
+      <created>1781572431463</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1781572431463</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,6 +244,7 @@
     <MESSAGE value="More update on the logic side" />
     <MESSAGE value="Updated the Left block for details" />
     <MESSAGE value="Progress has been made. Changed to SwipeView and not working on load and save logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Progress has been made. Changed to SwipeView and not working on load and save logic" />
+    <MESSAGE value="NEW CHANGES" />
+    <option name="LAST_COMMIT_MESSAGE" value="NEW CHANGES" />
   </component>
 </project>

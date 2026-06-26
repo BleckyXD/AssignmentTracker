@@ -10,7 +10,7 @@ Rectangle
     id: mainLeftRectangle
     width: leftRectangle.width
     height: 80
-    color: assignmentDetails.pressed ? "#401a1a2e" : "#1a1a2e"
+    color: assignmentDetails.pressed ? "#401a1a2e" : globalTheme.rectangleInfoColor
     scale: assignmentDetails.pressed ? 0.9 : 1.0
     border.color: assignmentDetails.pressed ? "#80ffffff" : "white"
 
@@ -84,7 +84,7 @@ Rectangle
             TextField
             {
                 id: titleInput
-                text: rectModel.info
+                // text: rectModel.info
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 228
                 placeholderText: "Enter assignment title..."
@@ -146,17 +146,17 @@ Rectangle
                             {
                                 id: firstRow
                                 text: "hey"
-                                color: "black"
-                                anchors.fill: parent
+                                color: "white"
+                                anchors.centerIn: parent
+
                                 Popup
                                 {
                                     id: detailsPop
-                                    // parent: Overlay.overlay
                                     focus: true             // Captures keyboard focus
                                     modal: true         // Blocks mouse clicks in the background
                                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
-                                    x: ((parent.width - width) / 2)
+                                    x: (parent.width - detailsPop.width) / 2
                                     y: (parent.height - height) / 2
                                     z: 100
                                     width: parent.width * 0.95
@@ -173,90 +173,103 @@ Rectangle
                                     }
                                     ColumnLayout
                                     {
-
-                                        Rectangle
+                                        AbstractButton
                                         {
+                                            id: firstOption
                                             width: 150
                                             height: 50
-                                            color: firstOption.pressed ? "black" : "blue"
-                                            radius: 5
                                             Text
                                             {
                                                 text: "IMPORTANT"
                                                 color: "white"
+                                                anchors.centerIn: parent
 
                                             }
-                                            TapHandler
+                                            background: Rectangle
                                             {
-                                                id: firstOption
-                                                onTapped:
-                                                {
-                                                    firstRow.text = "FIRST OPTION"
-                                                }
-
+                                                radius: 5
+                                                color: firstOption.down ? "black" : "blue"
+                                                border.color: "white"
+                                            }
+                                            onClicked:
+                                            {
+                                                firstRow.text = "FIRST OPTION"
+                                                detailsPop.close()
                                             }
                                         }
-                                        Rectangle
+
+                                        AbstractButton
                                         {
+                                            id: secondOption
                                             width: 150
                                             height: 50
-                                            color: secondOption.pressed ? "black" : "blue"
-                                            radius: 5
                                             Text
                                             {
                                                 text: "IMPORTANT"
                                                 color: "white"
+                                                anchors.centerIn: parent
                                             }
-                                            TapHandler
+                                            background: Rectangle
                                             {
-                                                id: secondOption
-                                                onTapped:
-                                                {
-                                                    firstRow.text = "SECOND OPTION"
-                                                }
+                                                color: secondOption.down ? "black" : "blue"
+                                                radius: 5
+                                                border.color: "white"
+                                            }
 
+                                            onClicked:
+                                            {
+                                                firstRow.text = "SECOND OPTION"
+                                                detailsPop.close()
                                             }
                                         }
-                                        Rectangle
+                                        AbstractButton
                                         {
+                                            id: thirdOption
                                             width: 150
                                             height: 50
-                                            color: thirdOption.pressed ? "black" : "blue"
-                                            radius: 5
+
                                             Text
                                             {
                                                 text: "IMPORTANT"
                                                 color: "white"
+                                                anchors.centerIn: parent
                                             }
-                                            TapHandler
+                                            background: Rectangle
                                             {
-                                                id: thirdOption
-                                                onTapped:
-                                                {
-                                                    firstRow.text = "THIRD OPTION"
-                                                }
+                                                color: thirdOption.down ? "black" : "blue"
+                                                radius: 5
+                                                border.color: "white"
+                                            }
 
+                                            onClicked:
+                                            {
+                                                firstRow.text = "THIRD OPTION"
+                                                detailsPop.close()
                                             }
                                         }
-                                        Rectangle
+                                        AbstractButton
                                         {
+                                            id: fourthOption
                                             width: 150
                                             height: 50
-                                            color: fourthOption.pressed ? "black" : "blue"
-                                            radius: 5
+
                                             Text
                                             {
                                                 text: "IMPORTANT"
                                                 color: "white"
+                                                anchors.centerIn: parent
                                             }
-                                            TapHandler
+                                            background: Rectangle
                                             {
-                                                id: fourthOption
-                                                onTapped:
-                                                {
-                                                    firstRow.text = "FOURTH OPTION"
-                                                }
+                                                color: fourthOption.down ? "black" : "blue"
+                                                radius: 5
+                                                border.color: "white"
+                                            }
 
+                                            onClicked:
+                                            {
+                                                firstRow.text = "FOURTH OPTION"
+                                                detailsPop.close()
                                             }
                                         }
                                     }
@@ -406,114 +419,10 @@ Rectangle
                                         font.pixelSize:12
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
-
-
                                     }
 
                                 }
                             }
-
-
-
-                            // Text
-                            // {
-
-                            //     text: "TEST"
-                            //     color: "white"
-                            // }
-                            // Popup
-                            // {
-                            //     id: time
-                            //     focus: true             // Captures keyboard focus
-                            //     modal: true         // Blocks mouse clicks in the background
-                            //     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-
-                            //     x: ((parent.width - width) / 2)
-                            //     y: (parent.height - height) / 2
-                            //     z: 100
-                            //     width: parent.width * 0.25
-                            //     height: parent.height * 0.50
-                            //     background: Rectangle
-                            //     {
-                            //         color: "transparent"
-                            //         radius: 5
-                            //     }
-                            //     contentItem:Item
-                            //     {
-                            //         anchors.fill: parent
-                            //         RowLayout
-                            //         {
-                            //             anchors.centerIn: parent
-
-
-
-                            //             Tumbler
-                            //             {
-                            //                 // Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            //                 id: hour
-                            //                 Layout.preferredWidth: 12
-                            //                 Layout.preferredHeight:60
-                            //                 model: 13
-
-                            //             }
-                            //             Text
-                            //             {
-                            //                 text: ":"
-                            //                 color: "white"
-                            //             }
-                            //             Tumbler
-                            //             {
-                            //                 // Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            //                 id: minutes
-                            //                 Layout.preferredWidth: 12
-                            //                 Layout.preferredHeight:60
-                            //                 model: 60
-
-                            //             }
-                            //             Tumbler
-                            //             {
-                            //                 // Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            //                 id: timePeriod
-                            //                 Layout.preferredWidth: 20
-                            //                 Layout.preferredHeight:60
-                            //                 model: ["AM", "PM"]
-
-                            //             }
-                            //         }
-                            //     }
-                            // }
-                            // TapHandler
-                            // {
-                            //     onTapped:
-                            //     {
-                            //         time.open()
-                            //     }
-                            // }
-
-                            // RowLayout
-                            // {
-                            //     anchors.centerIn: parent
-                            //     Tumbler
-                            //     {
-                            //         id: simpleTumbler
-                            //         Layout.preferredWidth: 15
-                            //         Layout.preferredHeight: 100
-                            //         model: 10
-                            //     }
-                            //     Text
-                            //     {
-                            //         text: ":"
-                            //         color: "white"
-                            //     }
-                            //     Tumbler
-                            //     {
-                            //         id: as
-                            //         Layout.preferredWidth: 15
-                            //         Layout.preferredHeight: 100
-                            //         model: 10
-                            //     }
-                            // }
-
                         }
                         Rectangle
                         {
@@ -530,13 +439,8 @@ Rectangle
                             radius: 5
                         }
                     }
+                }
             }
-
-
-
-            }
-
-
         }
     }
 

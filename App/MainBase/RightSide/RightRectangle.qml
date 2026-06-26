@@ -5,7 +5,7 @@ import QtQuick.Controls
 
 Rectangle
 {
-    Layout.preferredWidth: mainWindow.width / 4
+    Layout.fillWidth: true
     Layout.fillHeight: true
     color: "transparent"
 
@@ -16,10 +16,31 @@ Rectangle
 
         Rectangle
         {
-            Layout.preferredWidth:250
-            Layout.preferredHeight:300
-            color: "#0f3460"
+
+            height: 70
+            Layout.fillWidth: true
+            color: globalTheme.clockColor
             radius: 8
+            border.width: 3
+            border.color:globalTheme.borderColor
+            Text
+            {
+                text: f.clockUpdate
+                color: "white"
+                font.pixelSize: 40
+                anchors.centerIn: parent
+
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true
+            Layout.preferredHeight:180
+            color: globalTheme.backgroundRectangleMain
+            border.color: globalTheme.borderColor
+            border.width: 3
+            radius: 8
+
 
             ColumnLayout
             {
@@ -27,34 +48,21 @@ Rectangle
                 anchors.margins: 3
                 spacing: 5
 
-                AbstractButton
-                {
-                    id: hourTime
-                    height: 70
-                    Layout.fillWidth: true
-                    background: Rectangle
-                    {
-                        color: hourTime.down ? "blue" : "white"
-                        radius: 8
-                    }
-                }
-
-                AbstractButton
-                {
-                    id:a
-                    height: 20
-                    Layout.fillWidth: true
-                    background: Rectangle
-                    {
-                        color: "black"
-                        radius: 8
-                    }
-                }
+                // AbstractButton
+                // {
+                //     height: 20
+                //     Layout.fillWidth: true
+                //     background: Rectangle
+                //     {
+                //         color: "black"
+                //         radius: 8
+                //     }
+                // }
                 Rectangle
                 {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    color: "red"
+                    color: globalTheme.backgroundRectangleMain
                     radius: 8
 
                     ColumnLayout
@@ -65,6 +73,7 @@ Rectangle
 
                         AbstractButton
                         {
+                            id: openSongList
                             height: 50
 
                             Layout.fillWidth: true
@@ -119,7 +128,6 @@ Rectangle
                             Layout.alignment: Qt.AlignRight
                             Row
                             {
-
                                 anchors.bottom: parent.bottom
                                 anchors.right: parent.right
                                 Text
@@ -176,7 +184,7 @@ Rectangle
                                 radius: height/2
                                 x: musicTime.leftPadding + musicTime.visualPosition * (musicTime.availableWidth - width)
                                 y: musicTime.topPadding + (musicTime.availableHeight - height) / 2
-                                color: "black"
+                                color: globalTheme.mp3Slider
                             }
                             background: Rectangle
                             {
@@ -190,19 +198,14 @@ Rectangle
                             }
                             Rectangle
                             {
-                                color: "blue"
+                                color: globalTheme.sliderBackground
                                 height: parent.height
                                 radius: parent.radius
                                 width: musicTime.visualPosition * parent.width
                             }
 
                         }
-                        Rectangle
-                        {
-                            height: 2
-                            Layout.fillWidth: true
-                            color: "white"
-                        }
+
                         RowLayout
                         {
                             Layout.fillWidth: true
@@ -214,8 +217,12 @@ Rectangle
                                 width: 30
                                 background: Rectangle
                                 {
-                                    color: "black"
+                                    color: globalTheme.buttons
                                     radius: height / 2
+                                }
+                                onPressed:
+                                {
+                                    songListView.currentIndex -=1
                                 }
                             }
                             AbstractButton
@@ -225,14 +232,17 @@ Rectangle
                                 width: 30
                                 background: Rectangle
                                 {
-                                    color: "blue"
+                                    color:
+                                    {
+
+                                        playpause.down ? "blue" : globalTheme.buttons
+                                    }
                                     radius: height / 2
                                 }
                                 onPressed:
                                 {
                                     f.playPause()
                                 }
-
 
                             }
                             AbstractButton
@@ -242,82 +252,196 @@ Rectangle
 
                                 background: Rectangle
                                 {
-                                    color: "black"
+                                    color: globalTheme.buttons
                                     radius: height / 2
                                 }
+                                onPressed:
+                                {
+                                    songListView.currentIndex +=1
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 125
+            color: globalTheme.backgroundRectangleMain
+            border.width: 3
+            border.color: globalTheme.borderColor
+            radius: 8
+
+            ColumnLayout
+            {
+                anchors.fill: parent
+                anchors.margins: 6
+                // Rectangle
+                // {
+                //     Layout.preferredHeight: 35
+                //     Layout.fillWidth: true
+                //     radius: 8
+                //     color: "transparent"
+                //     border.width: 3
+                //     border.color: globalTheme.borderColor
+                //     Text
+                //     {
+                //         text: "Controls"
+                //         font.pixelSize: 25
+                //         anchors.centerIn: parent
+
+                //     }
+                // }
+                RowLayout
+                {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.margins: 6
+
+                    AbstractButton
+                    {
+                        id: leftPage
+                        Layout.preferredWidth: 50
+                        Layout.preferredHeight: 50
+
+                        background: Rectangle
+                        {
+                            radius: width / 2
+
+                            color: leftPage.pressed ? "#20ffffff" : globalTheme.buttons
+                            scale: leftPage.pressed ? 0.9 : 1.0
+                            border.color: leftPage.pressed ? "green": globalTheme.borderColor
+                        }
+                        Shape
+                        {
+                            anchors.fill: parent
+                            antialiasing: true
+
+                            ShapePath
+                            {
+                                strokeColor: "black"
+                                strokeWidth: 4
+                                fillColor: "transparent"
+                                capStyle: ShapePath.RoundCap // Makes the ends round instead of square
+                                joinStyle: ShapePath.RoundJoin // Smoothes the "V" joint
+                                startX: 30; startY: 10
+                                PathLine { x:15 ; y:25 }
+                                PathLine { x:30 ; y:40 }
+                                // PathLine { x:40 ; y:15 }
+
+                            }
+                        }
+                        onClicked:
+                        {
+                            if (view.currentIndex > 0)
+                            {
+                                view.currentIndex--
+                            }
+                        }
+                        Behavior on scale
+                        {
+                            NumberAnimation
+                            {
+                                duration: 100
+                                easing.type: Easing.OutBack // Adds a little "bounce" effect
                             }
                         }
                     }
 
+                    AbstractButton
+                    {
+                        id: pageRightButton
+                        Layout.preferredWidth: 50
+                        Layout.preferredHeight: 50
+
+                        Layout.alignment: Qt.AlignLeft
+                        background: Rectangle
+                        {
+                            border.width: 1
+                            radius: width / 2
+                            color: pageRightButton.down ? "#20ffffff" : globalTheme.buttons
+                            scale: pageRightButton.down ? 0.9 : 1.0
+                            border.color: pageRightButton.down ? "green": globalTheme.borderColor
+                        }
+                        Shape
+                        {
+                            anchors.fill: parent
+                            antialiasing: true
+
+                            ShapePath
+                            {
+                                strokeColor: "black"
+                                strokeWidth: 4
+                                fillColor: "transparent"
+                                capStyle: ShapePath.RoundCap // Makes the ends round instead of square
+                                joinStyle: ShapePath.RoundJoin // Smoothes the "V" joint
+                                startX:20; startY:10
+                                PathLine { x: 35; y: 25 }
+                                PathLine { x: 20; y: 40 }
+                            }
+                        }
+                        onClicked:
+                        {
+                            if (view.currentIndex < view.count - 1)
+                            {
+                                view.currentIndex++
+                            }
+                        }
+                        Behavior on scale
+                        {
+                            NumberAnimation
+                            {
+                                duration: 100
+                                easing.type: Easing.OutBack // Adds a little "bounce" effect
+                            }
+                        }
+                    }
+                    Item
+                    {
+                        Layout.fillWidth: true
+                    }
+                    AbstractButton
+                    {
+                        id: settingsOpen
+                        height: 45
+                        width: 45
+                        Layout.alignment: Qt.AlignLeft
+                        background: Rectangle
+                        {
+                            color: settingsOpen.down ? "black" : globalTheme.buttons
+                            radius: width / 4
+                            border.color: globalTheme.borderColor
+                            border.width: 3
+                        }
+                        onClicked:
+                        {
+                            settingsLoader.source = "Settings.qml";
+                        }
+
+                    }
                 }
                 AbstractButton
                 {
-                    height: 20
-                    width: 20
-                    Layout.alignment: Qt.AlignRight
+                    height: 35
+                    Layout.fillWidth: true
                     background: Rectangle
                     {
-                        color: "white"
+                        color: "black"
                         radius: 8
+                        border.width: 3
+                        border.color: globalTheme.borderColor
                     }
-
-                }
-            }
-        }
-
-        Rectangle
-        {
-
-            id: pageRightButton
-            Layout.preferredWidth: 50
-            Layout.preferredHeight: 50
-            border.width: 1
-            Layout.alignment: Qt.AlignRight
-            // color: "black"
-            radius: width / 2
-            color: clickArea.pressed ? "#20ffffff" : "white"
-            scale: clickArea.pressed ? 0.9 : 1.0
-            border.color: clickArea.pressed ? "green": "black"
-            Shape
-            {
-                anchors.fill: parent
-                antialiasing: true
-
-                ShapePath
-                {
-                    strokeColor: "gray"
-                    strokeWidth: 4
-                    fillColor: "transparent"
-                    capStyle: ShapePath.RoundCap // Makes the ends round instead of square
-                    joinStyle: ShapePath.RoundJoin // Smoothes the "V" joint
-                    startX:20; startY:10
-                    PathLine { x: 35; y: 25 }
-                    PathLine { x: 20; y: 40 }
-                }
-            }
-            MouseArea
-            {
-                id: clickArea
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-
-                // Sending action to Python
-                onClicked:
-                {
-
-                    if (view.currentIndex < view.count - 1)
-                    {
-                        view.currentIndex++
-                    }
-                }
-
-            }
-            Behavior on scale
-            {
-                NumberAnimation
-                {
-                    duration: 100
-                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                    // Text
+                    // {
+                    //     text: "Color Themes"
+                    //     font.pixelSize: 18
+                    //     color: "white"
+                    //     anchors.centerIn: parent
+                    // }
                 }
             }
         }
@@ -332,9 +456,9 @@ Rectangle
             Layout.preferredWidth: 35
             Layout.preferredHeight: 35
             radius: width / 2
-            color: addPage.pressed ? "#20ffffff" : "white"
+            color: addPage.pressed ? "#20ffffff" : globalTheme.buttons
             scale: addPage.pressed ? 0.9 : 1.0
-            border.color: addPage.pressed ? "green": "white"
+            border.color: addPage.pressed ? "green": globalTheme.borderColor
             Shape
             {
                 anchors.fill: parent
@@ -342,7 +466,7 @@ Rectangle
 
                 ShapePath
                 {
-                    strokeColor: "gray"
+                    strokeColor: "black"
                     strokeWidth: 4
                     fillColor: "transparent"
                     capStyle: ShapePath.RoundCap // Makes the ends round instead of square
@@ -382,12 +506,15 @@ Rectangle
     Popup
     {
         id: songList
-        parent: Overlay.overlay
-        x: ((mainWindow.width - width) / 2)
-        y: (mainWindow.height - height) / 2
+        parent: openSongList
+
+        x: 0
+        y: 0
         z: 50
-        width: mainWindow.width * 0.95
-        height: mainWindow.height * 0.80
+
+        width: parent.width
+        height: 100
+
         ListView
         {
             id:songListView
@@ -396,11 +523,17 @@ Rectangle
 
             model: f.musicList
 
+            spacing: 74
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            boundsBehavior: Flickable.StopAtBounds
+
+            maximumFlickVelocity: 0
             delegate: AbstractButton
             {
                 id: song
-                width: 100
-                height: 100
+                width: parent.width
+                height: 74
                 Text
                 {
                     text: modelData.audio

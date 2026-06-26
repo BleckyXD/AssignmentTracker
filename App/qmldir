@@ -1,5 +1,16 @@
 module App
 main 1.0 main.qml
+Settings 1.0 Settings.qml
+
+ColorManagement 1.0 ColorManagement.qml
+
+ThemeManagement 1.0 settingsLoad/ThemeManagement.qml
+Setting2 1.0 settingsLoad/Setting2.qml
+Setting3 1.0 settingsLoad/Setting3.qml
+Setting4 1.0 settingsLoad/Setting4.qml
+Setting5 1.0 settingsLoad/Setting5.qml
+Setting6 1.0 settingsLoad/Setting6.qml
+
 
 RightButtons 1.0 RightButtons.qml
 LeftButtons 1.0 LeftButtons.qml
