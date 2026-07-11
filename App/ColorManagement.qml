@@ -27,6 +27,8 @@ Item
     property color mp3Slider: choiceOfColors["MP3 Slider"]
     property color sliderBackground: choiceOfColors["MP3 Slider Background"]
     property color mp3Buttons: choiceOfColors["MP3 Buttons"]
+
+    property string iconFolder: choiceOfColors["iconFolder"]
 }
 
 

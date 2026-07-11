@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Shapes
 import QtQuick.Controls
 import App
-
+import Qt5Compat.GraphicalEffects
 Rectangle
 {
     id: leftRectangle
@@ -53,7 +53,78 @@ Rectangle
                     id: rectModel
                 }
             }
-            Rectangle
+            // Rectangle
+            // {
+            //     id: saveData
+            //     function saveAssignmentsJSON()
+            //     {
+            //         var assignmentData = {}
+
+            //             var i = rectModel.count - 1
+            //             var currentItem = rectModel.get(i)
+            //             var key = Math.floor(currentItem.assignmentIndex).toString()
+            //             assignmentData[key] = {"title": currentItem.title,
+            //                                    "status": currentItem.status,
+            //                                    "time": currentItem.time}
+
+
+
+            //         f.saveAssignmentData(assignmentData)
+            //     }
+            //     color: addingPage.pressed ? "#20ffffff" : globalTheme.buttons
+            //     scale: addingPage.pressed ? 0.9 : 1.0
+            //     border.color: addingPage.pressed ? "green": globalTheme.borderColor
+            //     Layout.preferredWidth: 50
+            //     Layout.preferredHeight: 50
+            //     Layout.alignment: Qt.AlignCenter
+            //     radius: width / 2
+
+            //     TapHandler
+            //     {
+            //         // "pageId": Date.now().toString()
+            //         id: addingPage
+            //         cursorShape: Qt.PointingHandCursor
+            //         onTapped:
+            //         {
+            //             rectModel.append({"title": "empty",
+            //                               "assignmentIndex": rectModel.count,
+            //                               "status": "",
+            //                               "time": ""})
+
+            //             saveData.saveAssignmentsJSON()
+            //         }
+
+            //     }
+            //     Shape
+            //     {
+            //         // anchors.fill: parent
+            //         antialiasing: true
+
+            //         ShapePath
+            //         {
+            //             strokeColor: "gray"
+            //             strokeWidth: 4
+            //             fillColor: "transparent"
+            //             capStyle: ShapePath.RoundCap // Makes the ends round instead of square
+            //             startX: 25; startY: 5
+            //             PathLine { x:25 ; y:45}
+            //             PathMove { x:5 ; y:25}
+            //             PathLine { x:45 ; y:25}
+            //         }
+            //     }
+            //     Behavior on scale
+            //     {
+            //         NumberAnimation
+            //         {
+            //             duration: 100
+            //             easing.type: Easing.OutBack // Adds a little "bounce" effect
+            //         }
+            //     }
+            // }
+
+
+
+            AbstractButton
             {
                 id: saveData
                 function saveAssignmentsJSON()
@@ -71,47 +142,49 @@ Rectangle
 
                     f.saveAssignmentData(assignmentData)
                 }
-                color: addingPage.pressed ? "#20ffffff" : globalTheme.buttons
-                scale: addingPage.pressed ? 0.9 : 1.0
-                border.color: addingPage.pressed ? "green": globalTheme.borderColor
+                scale: saveData.down ? 0.9 : 1.0
                 Layout.preferredWidth: 50
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignCenter
-                radius: width / 2
+                icon.source: `../../iconTemplates/${globalTheme.iconFolder}/AddIcon`
+                background: Rectangle
+                {
+                    anchors.fill: parent
+                    color: saveData.down ? "#20ffffff" : globalTheme.buttons
+                    border.color: saveData.down ? "green": "transparent"
+                    radius: width / 2
+                    Image
+                    {
+                        // id: rightArrowIcon
+                        source: saveData.icon.source
+                        sourceSize.width: saveData.width
+                        sourceSize.height: saveData.height
+                        anchors.centerIn: parent
+                        fillMode: Image.PreserveAspectFit
+                    }
+                    ColorOverlay
+                    {
+                        anchors.fill: saveData
+                        source: saveData
 
-                TapHandler
+                        color: saveData.down ? "green" : globalTheme.borderColor
+                    }
+
+                }
+
+                onClicked:
                 {
                     // "pageId": Date.now().toString()
-                    id: addingPage
-                    cursorShape: Qt.PointingHandCursor
-                    onTapped:
-                    {
-                        rectModel.append({"title": "empty",
-                                          "assignmentIndex": rectModel.count,
-                                          "status": "",
-                                          "time": ""})
+                    rectModel.append({"title": "empty",
+                                      "assignmentIndex": rectModel.count,
+                                      "status": "",
+                                      "time": ""})
 
-                        saveData.saveAssignmentsJSON()
-                    }
+                    saveData.saveAssignmentsJSON()
+
 
                 }
-                Shape
-                {
-                    // anchors.fill: parent
-                    antialiasing: true
 
-                    ShapePath
-                    {
-                        strokeColor: "gray"
-                        strokeWidth: 4
-                        fillColor: "transparent"
-                        capStyle: ShapePath.RoundCap // Makes the ends round instead of square
-                        startX: 25; startY: 5
-                        PathLine { x:25 ; y:45}
-                        PathMove { x:5 ; y:25}
-                        PathLine { x:45 ; y:25}
-                    }
-                }
                 Behavior on scale
                 {
                     NumberAnimation

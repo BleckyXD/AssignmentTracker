@@ -23,6 +23,8 @@ class QMLManager (QObject):
 
     updateColors = Signal()
 
+    audioPermission = Signal()
+
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
 
@@ -43,13 +45,14 @@ class QMLManager (QObject):
 
         self.colorsSelected = {"Main Background": "#16213e", "Border Color": "White",
                                "Info Rectangle": "black", "Buttons": "blue", "Clock": "#16213e",
-                               "MP3 Slider": "red", "MP3 Slider Background": "black"}
+                               "MP3 Slider": "red", "MP3 Slider Background": "black", "iconFolder": "Cascade"}
 
 
 
 
     @Property(list, notify=musicListChanged)
-    def musicList(self): return self.audio.songs()
+    def musicList(self):
+        return self.audio.songs()
 
     @Property(str, notify=songDurationChanged)
     def songDuration(self): return self.audio.totalSongDuration
@@ -66,28 +69,37 @@ class QMLManager (QObject):
     @Property(int, notify=updateSlideBar)
     def slideBar(self): return  self.audio.currentMsPosition
 
+    @Property(bool, notify=audioPermission)
+    def updatePermission(self):
+        return self.audio.buttonPermissions
+
+
+    #When the song is pressed, the name is passed and then looked for
     @Slot(str, str)
     def loadSongs(self, songName, songPosition):
+
+        print(f"SONG POSITION: {songPosition}")
+
+        if not self.audio.buttonPermissions:
+            self.audio.buttonPermissions = True
+            self.audioPermission.emit()
+
         selectedSong = f"MP3Player/files/{songName}.mp3"
+
         self.audio.currentSongIndex = songPosition
         self.audio.m.load(selectedSong)
 
-        for key, value in self.audio.songList.items():
-            if str(value["audio"]) == songName:
-                self.audio.totalSongDuration = value["duration"]
-                self.audio.msSongDuration = value["ms duration"]
+        self.audio.totalSongDuration = self.audio.songList[f"{songName}"]["duration"]
+        self.audio.msSongDuration = self.audio.songList[f"{songName}"]["ms duration"]
 
         self.audio.songTimePosition = 0
         self.songDurationChanged.emit()
         self.msSongDurationChanged.emit()
         self.updateSlideBar.emit()
 
-        # self.progressBar.setRange(0, self.data[f"song{index + 1}"]["ms duration"])
-        print(self.audio.msSongDuration)
         self.audio.timer.start()
 
         self.audio.m.play()
-
 
     @Slot()
     def sliderSongTime(self): self.audio.timer.stop()
@@ -100,9 +112,14 @@ class QMLManager (QObject):
             self.audio.playing = False
             self.audio.timer.stop()
         else:
-            self.audio.m.unpause()
+
+            if self.audio.sliderState:
+                self.audio.m.play(start=(self.audio.songTimePosition / 1000))
+            else:
+                self.audio.m.unpause()
             self.audio.playing = True
             self.audio.timer.start()
+
 
     @Slot()
     def openFile(self): self.files.chooseFile()
@@ -118,9 +135,16 @@ class QMLManager (QObject):
 
     @Slot()
     def continueTimer(self):
-        self.audio.timer.start()
-        self.audio.m.play(start=(self.audio.songTimePosition/ 1000))
+        if self.audio.playing:
+            self.audio.timer.start()
+            self.audio.m.play(start=(self.audio.songTimePosition/ 1000))
+            self.audio.sliderState = False
+        else:
+            self.audio.sliderState = True
 
+    @Slot()
+    def timerState(self):
+        self.audio.sliderState = True
     # ==================================================================================================================
     # ==================================================================================================================
     #==================================================================================================================
@@ -257,41 +281,46 @@ class musicFilesManager:
     def __init__(self, main_app):
         self.main = main_app
 
+
+
     def SAVE(self):
         with open("assignmentData.json", "w") as f:
             json.dump(self.main.info, f, indent=4)
         print("File Saved!")
 
+    #use the enum way for the for loop
     def setFile(self):
         files = os.listdir("C:/PROJECTS/MP3Player/files")
 
-        songs = {}
-        i = 1
-        for value in files:
-            audio = MP3("MP3Player/files/" + value)
+        with open('songData.json', 'r') as f:
+            songs = json.load(f)
 
-            duration_seconds = audio.info.length
-            ms = int(duration_seconds * 1000)
-            minutes = int((ms / 1000) / 60)
-            seconds = int((ms / 1000) % 60)
-            duration = f"{minutes:0}:{seconds:02d}"
-
-            firstKey = f"song{i}"
-            songs.update(
-                {firstKey:
-                      {
-                        "audio": value.rsplit(".", 1)[0],
-                        "ms duration": ms,
-                        "duration": duration
-                    }
-                })
-
-            i += 1
-
-        # with open("sample.json", "w") as f:
+        # i = 1
+        # for value in files:
+        #     audio = MP3("MP3Player/files/" + value)
+        #
+        #     duration_seconds = audio.info.length
+        #     ms = int(duration_seconds * 1000)
+        #     minutes = int((ms / 1000) / 60)
+        #     seconds = int((ms / 1000) % 60)
+        #     duration = f"{minutes:0}:{seconds:02d}"
+        #
+        #     firstKey = f"song{i}"
+        #     songs.update(
+        #         {firstKey:
+        #               {
+        #                 "audio": value.rsplit(".", 1)[0],
+        #                 "ms duration": ms,
+        #                 "duration": duration
+        #             }
+        #         })
+        #
+        #     i += 1
+        #
+        # with open("songData.json", "w") as f:
         #     json_str = json.dumps(songs, indent=4)
         #     f.write(json_str)
-        # self.songs = songs
+
 
         return songs
 
@@ -314,9 +343,9 @@ class musicFilesManager:
         print(f"Filename: {name} | Path: {path}")
         self.fileControl(path, name)
 
+    #When pressing the "add song" button
     def fileControl(self, sourceDir, fileName):
-        # print("Source: ", sourceDir)
-        # print(fileName)
+        print(fileName)
 
         # Define the path to where the file I want to move is located
         base_dir = Path(__file__).resolve().parent
@@ -332,6 +361,32 @@ class musicFilesManager:
         shutil.copy(sourcePath, destinationPath)
 
         print(f"File moved from {sourcePath} to {destinationPath}")
+
+
+
+        audio = MP3("MP3Player/files/" + fileName)
+
+        duration_seconds = audio.info.length
+        ms = int(duration_seconds * 1000)
+        minutes = int((ms / 1000) / 60)
+        seconds = int((ms / 1000) % 60)
+        duration = f"{minutes:0}:{seconds:02d}"
+
+        firstKey = f"{fileName.rsplit(".", 1)[0]}"
+        self.main.audio.songList.update(
+            {firstKey:
+                  {
+                    # "audio": fileName.rsplit(".", 1)[0],
+                    "ms duration": ms,
+                    "duration": duration
+                }
+            })
+
+
+        with open("songData.json", "w") as f:
+            json_str = json.dumps(self.main.audio.songList, indent=4)
+            f.write(json_str)
+
         self.mList()
 
         self.main.musicListChanged.emit()
@@ -350,6 +405,8 @@ class musicManager:
 
         self.songList = {}
         self.playing = True
+        self.sliderState = False
+        self.buttonPermissions = False
 
         self.totalSongDuration = "0:00"
         self.msSongDuration = 0
@@ -362,7 +419,8 @@ class musicManager:
 
     def songs(self):
         self.songList = self.main.files.setFile()
-        music = (list(self.songList.values()))
+        music = (list(self.songList))
+
         print("activated!")
 
         return music

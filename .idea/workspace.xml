@@ -4,28 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="NEW CHANGES">
-      <change afterPath="$PROJECT_DIR$/App/ColorManagement.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Settings.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting2.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting3.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting4.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting5.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/settingsLoad/Setting6.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/settingsLoad/ThemeManagement.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/songData.json" afterDir="false" />
+    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" beforeDir="false" afterPath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/LeftButtons.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/LeftButtons.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/PageAdded.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/PageAdded.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/ColorManagement.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/ColorManagement.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/qmldir" beforeDir="false" afterPath="$PROJECT_DIR$/App/qmldir" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/settingsLoad/ThemeManagement.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/settingsLoad/ThemeManagement.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LogicManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentData.json" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentData.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.pyproject" beforeDir="false" afterPath="$PROJECT_DIR$/project.pyproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/songData.json" beforeDir="false" afterPath="$PROJECT_DIR$/songData.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +37,6 @@
     &quot;assignee&quot;: &quot;BleckyXD&quot;
   }
 }</component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="f453d6c9-0d57-424b-a650-2a9d56e00e68" />
-  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/BleckyXD/AssignmentTracker.git&quot;,
@@ -86,9 +72,12 @@
   }
 }</component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\PROJECTS\App" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\PROJECTS" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\PROJECTS" />
+      <recent name="C:\PROJECTS\App" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main (2)">
@@ -223,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781572431463</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion.">
+      <option name="closed" value="true" />
+      <created>1782516195376</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1782516195376</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -245,6 +242,7 @@
     <MESSAGE value="Updated the Left block for details" />
     <MESSAGE value="Progress has been made. Changed to SwipeView and not working on load and save logic" />
     <MESSAGE value="NEW CHANGES" />
-    <option name="LAST_COMMIT_MESSAGE" value="NEW CHANGES" />
+    <MESSAGE value="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion." />
   </component>
 </project>

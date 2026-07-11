@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Shapes
-
+import Qt5Compat.GraphicalEffects
 Rectangle
 {
     // Layout.fillWidth: true
@@ -120,6 +120,8 @@ Rectangle
                 anchors.fill: parent
                 RowLayout
                 {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     Text
                     {
                         text: "To Do List"
@@ -128,12 +130,33 @@ Rectangle
                     }
                     AbstractButton
                     {
-                        height:15
-                        width: 15
+                        id: addToDo
+                        Layout.preferredHeight: 25
+                        Layout.preferredWidth: 25
+                        icon.source: `../../iconTemplates/${globalTheme.iconFolder}/AddIcon`
+
                         background: Rectangle
                         {
-                            color: "white"
-                            radius: 8
+                            color: "transparent"
+                            radius: width / 2
+                            Image
+                            {
+                                // id: rightArrowIcon
+                                source: addToDo.icon.source
+                                sourceSize.width: addToDo.width
+                                sourceSize.height: addToDo.height
+                                anchors.centerIn: parent
+                                fillMode: Image.PreserveAspectFit
+
+
+                            }
+                            ColorOverlay
+                            {
+                                anchors.fill: addToDo
+                                source: addToDo
+
+                                color: addToDo.down ? "green" : globalTheme.borderColor
+                            }
                         }
                         onClicked:
                         {

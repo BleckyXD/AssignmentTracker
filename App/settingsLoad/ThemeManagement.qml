@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Shapes
 import QtQuick.Controls
 import QtQuick.Dialogs
+import Qt5Compat.GraphicalEffects
 
 Rectangle
 {
@@ -13,11 +14,12 @@ Rectangle
     ColumnLayout
     {
         anchors.fill: parent
-
+        // anchors.margins: 4
         RowLayout
         {
             Layout.fillHeight: true
-            anchors.margins: 2
+            Layout.fillWidth: true
+
 
             ColumnLayout
             {
@@ -35,11 +37,10 @@ Rectangle
                         { tag: "Media Controls", items: ["MP3 Slider", "MP3 Slider Background"] }
                     ]
 
-                    delegate: Column
+                    delegate: ColumnLayout
                     {
                         spacing: 0
                         Layout.fillWidth: true
-
 
                         Text
                         {
@@ -50,15 +51,17 @@ Rectangle
                         }
 
 
-                        Rectangle {
-                            width:560
-                            height:50
+                        Rectangle
+                        {
+                            Layout.preferredWidth: 375
+                            Layout.preferredHeight: 40
+
                             color: "transparent"
 
                             Grid
                             {
                                 // anchors.verticalCenter: parent.verticalCenter
-                                columns: 4 // Allows up to 4 buttons per row
+                                columns: 3 // Allows up to 4 buttons per row
 
 
 
@@ -69,7 +72,7 @@ Rectangle
                                     delegate: AbstractButton
                                     {
                                         id: controlColor
-                                        width: 140
+                                        width: 125
                                         height: 32
 
                                         background: Rectangle
@@ -113,12 +116,147 @@ Rectangle
             }
             ColumnLayout
             {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Rectangle
+                {
+                    Layout.preferredHeight: 55
+                    Layout.preferredWidth: 190
+
+                    color: "white"
+                    border.color: "black"
+                    border.width: 2
+                    Layout.alignment: Qt.AlignTop
+                }
+
+
+
+
+                ScrollView
+                {
+                    Layout.preferredWidth: 190
+                    Layout.preferredHeight: 180
+                    clip: true
+
+                    ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                    ScrollBar.vertical.implicitWidth: 6
+
+                    ColumnLayout
+                    {
+                        width: parent.width
+                        spacing: 0
+                        Repeater
+                        {
+
+                            model:["Cascade","Forest" ,"Modern","Simplistic"]
+
+                            delegate:AbstractButton
+                            {
+                                property var currentFolder: modelData
+                                width: 190
+                                height: 60
+                                background:Rectangle
+                                {
+                                    color: "white"
+                                    radius: 2
+                                    border.color: "black"
+                                    border.width: 2
+                                }
+                                onClicked:
+                                {
+                                    globalTheme.iconFolder = currentFolder
+                                }
+
+
+                                RowLayout
+                                {
+
+                                    anchors.centerIn: parent
+                                    Repeater
+                                    {
+                                        model: ["AddIcon.svg", "ArrowIcon.svg", "PauseIcon.svg"]
+                                        delegate:AbstractButton
+                                        {
+                                            id: previewButton
+                                            width: 50
+                                            height: 50
+                                            icon.source: `../iconTemplates/${currentFolder}/${modelData}`
+
+                                            background: Rectangle
+                                            {
+                                                radius: width / 2
+                                                color: "transparent"
+                                                Image {
+                                                    // id: rightArrowIcon
+                                                    source: previewButton.icon.source
+                                                    sourceSize.width: previewButton.width
+                                                    sourceSize.height: previewButton.height
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+                                                }
+                                                ColorOverlay
+                                                {
+                                                    anchors.fill: previewButton
+                                                    source: previewButton
+
+                                                    color: previewButton.down ? "green" : globalTheme.borderColor
+                                                }
+                                            }
+
+                                            onClicked:
+                                            {
+                                                globalTheme.iconFolder = currentFolder
+                                            }
+                                        }
+                                    }
+
+                                }
+
+
+
+                                // AbstractButton
+                                // {
+                                //     width: 50
+                                //     height: 50
+                                //     anchors.centerIn: parent
+                                //     background: Rectangle
+                                //     {
+                                //         radius: width / 2
+                                //         color: "blue"
+                                //     }
+
+
+                                //     onClicked:
+                                //     {
+
+
+                                //         var updates = colorSelectionRow.toneDatabase[modelData]
+                                //         colorSelectionRow.dynamicTonesList = updates
+                                //     }
+                                // }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+
+            Rectangle
+            {
+                Layout.preferredWidth: 5
+                Layout.preferredHeight: 250
+                color: "white"
+                Layout.alignment: Qt.AlignTop
+            }
+            ColumnLayout
+            {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Rectangle
                 {
                     Layout.preferredHeight: 55
-                    Layout.fillWidth: parent
+                    Layout.preferredWidth: 180
                     color: "white"
                     border.color: "black"
                     border.width:2
@@ -160,7 +298,7 @@ Rectangle
 
                     ScrollView
                     {
-                        Layout.preferredWidth: 130
+                        Layout.preferredWidth: 100
                         Layout.preferredHeight: 180
                         clip: true
 
@@ -170,7 +308,7 @@ Rectangle
                         Grid
                         {
                             columns: 1
-                            Layout.preferredHeight: parent.height
+                            // Layout.preferredHeight: parent.height
                             spacing: 0
                             Repeater
                             {
@@ -206,7 +344,7 @@ Rectangle
                     }
                     ScrollView
                     {
-                        Layout.preferredWidth: 90
+                        Layout.preferredWidth: 100
                         Layout.preferredHeight: 150
                         clip: true
 
@@ -225,7 +363,7 @@ Rectangle
                                 delegate: AbstractButton
                                 {
 
-                                    width: 80
+                                    width: 100
                                     height: 30
                                     background: Rectangle
                                     {
@@ -295,15 +433,38 @@ Rectangle
                                 border.width: 3
                                 radius: 5
                             }
-                            Rectangle
+                            AbstractButton
                             {
+                                id:showButtonAddAssign
                                 Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
-                                color: globalTheme.buttons
-                                border.color: globalTheme.borderColor
-                                border.width: 3
-                                radius: width / 2
+
                                 Layout.alignment: Qt.AlignHCenter
+                                icon.source: `../iconTemplates/${globalTheme.iconFolder}/AddIcon`
+
+                                background: Rectangle
+                                {
+                                    color: "transparent"
+                                    border.color: globalTheme.borderColor
+                                    border.width: 3
+                                    radius: width / 2
+                                    Image {
+                                        // id: rightArrowIcon
+                                        source: showButtonAddAssign.icon.source
+                                        sourceSize.width: showButtonAddAssign.width
+                                        sourceSize.height: showButtonAddAssign.height
+                                        anchors.centerIn: parent
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                    ColorOverlay
+                                    {
+                                        anchors.fill: showButtonAddAssign
+                                        source: showButtonAddAssign
+
+                                        color: showButtonAddAssign.down ? "green" : globalTheme.borderColor
+                                    }
+                                }
+
                             }
                             Item
                             {
@@ -376,14 +537,54 @@ Rectangle
                                 ColumnLayout
                                 {
                                     anchors.fill: parent
-                                    Text
+                                    anchors.topMargin: 5
+                                    RowLayout
                                     {
-                                        text: "To Do List"
-                                        color: "white"
-                                        font.pixelSize: 12
-                                        Layout.leftMargin: 4
+                                        Layout.fillHeight: true
+                                        Layout.fillWidth: true
+                                        Text
+                                        {
+                                            text: "To Do List"
+                                            color: "white"
+                                            font.pixelSize: 12
+                                            Layout.leftMargin: 4
+
+                                        }
+                                        AbstractButton
+                                        {
+                                            id: showButtonAddToDo
+                                            Layout.preferredWidth: 15
+                                            Layout.preferredHeight: 15
+                                            icon.source: `../iconTemplates/${globalTheme.iconFolder}/AddIcon`
+                                            background: Rectangle
+                                            {
+                                                color: "transparent"
+                                                border.color: globalTheme.borderColor
+                                                border.width: 1
+                                                radius: width / 2
+                                                Image {
+                                                    // id: rightArrowIcon
+                                                    source: showButtonAddToDo.icon.source
+                                                    sourceSize.width: showButtonAddToDo.width
+                                                    sourceSize.height: showButtonAddToDo.height
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+                                                }
+                                                ColorOverlay
+                                                {
+                                                    anchors.fill: showButtonAddToDo
+                                                    source: showButtonAddToDo
+
+                                                    color: showButtonAddToDo.down ? "green" : globalTheme.borderColor
+                                                }
+                                            }
+
+
+                                        }
 
                                     }
+
+
                                     Rectangle
                                     {
                                         Layout.fillHeight: true
@@ -521,12 +722,35 @@ Rectangle
                                             radius: width / 2
                                             color: globalTheme.buttons
                                         }
-                                        Rectangle
+                                        AbstractButton
                                         {
+                                            id: showButtonPlay
                                             Layout.preferredHeight: 25
                                             Layout.preferredWidth: 25
-                                            radius: width / 2
-                                            color: globalTheme.buttons
+                                            icon.source: `../iconTemplates/${globalTheme.iconFolder}/PlayIcon`
+                                            background: Rectangle
+                                            {
+                                                radius: width / 2
+                                                color: "transparent"
+                                                Image
+                                                {
+                                                    // id: rightArrowIcon
+                                                    source: showButtonPlay.icon.source
+                                                    sourceSize.width: showButtonPlay.width
+                                                    sourceSize.height: showButtonPlay.height
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+
+                                                }
+                                                ColorOverlay
+                                                {
+                                                    anchors.fill: showButtonPlay
+                                                    source: showButtonPlay
+
+                                                    color: showButtonPlay.down ? "green" : globalTheme.borderColor
+                                                }
+                                            }
+
                                         }
                                         Rectangle
                                         {
@@ -554,23 +778,71 @@ Rectangle
                                     {
                                         Layout.fillHeight: true
                                         Layout.fillWidth: true
-                                        Rectangle
+                                        AbstractButton
                                         {
+                                            id: showButtonLeft
                                             Layout.preferredHeight: 35
                                             Layout.preferredWidth: 35
-                                            radius: width / 2
-                                            color: globalTheme.buttons
-                                            border.color: globalTheme.borderColor
-                                            border.width: 3
+                                            icon.source: `../iconTemplates/${globalTheme.iconFolder}/ArrowIcon`
+                                            background: Rectangle
+                                            {
+                                                radius: width / 2
+                                                color: "transparent"
+                                                border.color: globalTheme.borderColor
+                                                border.width: 3
+                                                Image
+                                                {
+                                                    // id: rightArrowIcon
+                                                    source: showButtonLeft.icon.source
+                                                    sourceSize.width: showButtonLeft.width
+                                                    sourceSize.height: showButtonLeft.height
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+                                                    rotation: 180
+                                                }
+                                                ColorOverlay
+                                                {
+                                                    anchors.fill: showButtonLeft
+                                                    source: showButtonLeft
+
+                                                    color: showButtonLeft.down ? "green" : globalTheme.borderColor
+                                                }
+                                            }
+
+
                                         }
-                                        Rectangle
+                                        AbstractButton
                                         {
+                                            id: showButtonRight
                                             Layout.preferredHeight: 35
                                             Layout.preferredWidth: 35
-                                            radius: width / 2
-                                            color: globalTheme.buttons
-                                            border.color: globalTheme.borderColor
-                                            border.width: 3
+                                            icon.source: `../iconTemplates/${globalTheme.iconFolder}/ArrowIcon`
+
+                                            background: Rectangle
+                                            {
+                                                radius: width / 2
+                                                color: "transparent"
+                                                border.color: globalTheme.borderColor
+                                                border.width: 3
+                                                Image
+                                                {
+                                                    // id: rightArrowIcon
+                                                    source: showButtonRight.icon.source
+                                                    sourceSize.width: showButtonRight.width
+                                                    sourceSize.height: showButtonRight.height
+                                                    anchors.centerIn: parent
+                                                    fillMode: Image.PreserveAspectFit
+
+
+                                                }
+                                                ColorOverlay
+                                                {
+                                                    anchors.fill: showButtonRight
+                                                    source: showButtonRight
+
+                                                    color: showButtonRight.down ? "green" : globalTheme.borderColor
+                                                }
+                                            }
                                         }
                                         Item
                                         {
