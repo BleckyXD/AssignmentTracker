@@ -985,7 +985,111 @@ the songList and store it again in the JSON, with the newly added file.
 > I will include here the file structure of the icons:
 
 ### Icon File Diagram
-![Logo de mi App](Icon%20Flow%20Chart.jpeg)
+
+```mermaid
+flowchart TB
+	
+	App@{shape: cyl, label: "App Folder"}
+	images@{ shape: das, label: "Images Folder"}
+	templates@{shape: das, label: "Icon Templates Folder"}
+	simple@{shape: stadium, label: "Simplistic"}
+	modern@{shape: stadium, label: "Modern"}
+	forest@{shape: stadium, label: "Forest"}
+	cascade@{shape: stadium, label: "Cascade"}
+	
+	
+	addSimple@{shape: odd, label: "Add Icon"}
+	arrowSimple@{shape: odd, label: "Arrow Icon"}
+	pauseSimple@{shape: odd, label: "Pause Icon"}
+	playSimple@{shape: odd, label: "Play Icon"}
+	
+	addModern@{shape: odd, label: "Add Icon"}
+	arrowModern@{shape: odd, label: "Arrow Icon"}
+	pauseModern@{shape: odd, label: "Pause Icon"}
+	playModern@{shape: odd, label: "Play Icon"}
+	
+	addForest@{shape: odd, label: "Add Icon"}
+	arrowForest@{shape: odd, label: "Arrow Icon"}
+	pauseForest@{shape: odd, label: "Pause Icon"}
+	playForest@{shape: odd, label: "Play Icon"}
+	
+	addCascade@{shape: odd, label: "Add Icon"}
+	arrowCascade@{shape: odd, label: "Arrow Icon"}
+	pauseCascade@{shape: odd, label: "Pause Icon"}
+	playCascade@{shape: odd, label: "Play Icon"}
+	
+  subgraph Folder["Template Folder"]
+  simple
+  modern
+  forest
+  cascade
+
+	end
+  
+  subgraph Simplistic["Simplistic Folder"]
+  addSimple
+  arrowSimple
+  pauseSimple
+  playSimple
+  end
+  
+  subgraph Modern["Modern Folder"]
+  addModern
+  arrowModern
+  pauseModern
+  playModern
+  end
+  
+  subgraph Forest["Forest Folder"]
+	addForest
+	arrowForest
+	pauseForest
+	playForest
+  end
+  
+  subgraph CascadeFolder["Cascade Folder"]
+  addCascade
+  arrowCascade
+  pauseCascade
+  playCascade
+  end
+  
+  
+App e1@==>|\App| images
+images e2@==>|\App\images| templates
+templates e3@==>|\App\images\iconTemplates| Folder
+simple e4@==> |\App\images\iconTemplates\Simplistic|Simplistic
+modern e5@==> |\App\images\iconTemplates\Modern|Modern
+forest e6@==> |\App\images\iconTemplates\Forest|Forest
+cascade e7@==> |\App\images\iconTemplates\Cascade|CascadeFolder
+
+style App fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;
+style images fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;
+style templates fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;
+style Folder fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;
+style images fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;
+style images fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;
+style images fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff,font-weight:bold;  
+
+
+
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e1 animate
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e2 animate
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e3 animate
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e4 animate
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e5 animate
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e6 animate
+classDef animate stroke-dasharray: 15,5,stroke-dashoffset: 900,animation: dash 15s linear infinite;
+class e7 animate
+```
+
+
 
 
 # July 6, 2026
