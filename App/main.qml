@@ -12,7 +12,7 @@ ApplicationWindow
     width: 1024
     height: 600
     title: "My Qt Quick App"
-    color: "green"
+    color: globalTheme.mainBackground
 
     ColorManagement { id: globalTheme }
     StackView

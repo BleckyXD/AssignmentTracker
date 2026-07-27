@@ -993,14 +993,181 @@ the songList and store it again in the JSON, with the newly added file.
 ## Details
 
 > The paths for each icon has been set. Now, I am working on the display for the icon templates, which will be a nested
-> Repeater. First repeater loops through an icon folder, and second repeater loops over all the icons in that folder.
+> Repeater. First repeater loops through an icon folder, and second repeater loops over all the icons in that folder. 
 
 > The icons appear correctly on the theme management page. Now, the next task is to connect this all the icons in the
 > program and let the user choose the wanted one.   
 
 
-# July 10, 2026
+# July 12, 2026
 
 ## Details
+
+> Fixed a bug where the MP3 play button logic got reversed everytime that a song was skipped while the current song was 
+> paused. Aside from that, the controls for the MP3 are now more regulated, since none of them work until a song is 
+> being played.
+
+> Fixed another bug where an error message appeared on the terminal when the user does not select a mp3 file in the 
+> dialog box. Now, if no file is selected, no message is outputted.
+
+# July 13, 2026
+
+## Details
+
+- Work with changing the text font to a general button.
+- Format the clock and give it a modern look.
+- Animate each thing that can be animated.
+- Create new icons.
+
+> Do them in that exact order
+> Color theme selection section in settings will need a redesign so more settings fit the screen.
+
+# July 18, 2026
+    
+## Theme selection
+
+> As of today, I ran through some issues with the theme selection, so the main focus of the project is directed onto  this
+> part. Until it is done, nothing else will be continued.
+
+> For ensuring the correct color showed on the color selection menu, we will use Linear Interpolation (Lerp) applied to 
+> the HSL Lightness Channel. We can use the following formula:
+> $L = 1.0 - \frac{i}{24}$
+
+# July 19, 2026
+
+## Theme Selection
+
+> For today, I will create the page for selecting the font of the application by retrieving the names of each file in the
+> font folder and then loading it with a FontLoader, so that each block has the different available fonts (10 fonts).
+
+> The font page has been completed and also some centering options have been updated, so that the buttons, colors, and
+> fonts are centered in relation to their area.
+
+
+# July 20, 2026
+
+> The theme, icon, and fonts page has been completed. The app is now fully customizable to what the user desires. Next
+> step is the following (in order):
+- Fix the Preview Layout and connect the missing buttons with colors and icon [x]
+- Connect the font selection to everything on the app [x]
+- Give an animation to each button and also react when the mouse is on top of the button [x]
+- Give an animation to the theme layout page (when changing between settings) [x]
+
+
+# July 21, 2026
+
+# Fixing Up Details
+
+> The icons and correctly connected and the color of the buttons and icons have been improved, so it is visually better.
+> Next step is to connect the font that the user chooses.
+
+> The font selection has been connected, so now the user can select the preferred font, which is shown in the whole app.
+
+> There is a bug with the previous skip on the mp3 player. There is also a bug with the play button, since the music starts
+> without me releasing the button, only press. (also applies to song selection)
+
+> The main buttons have been updated, and now they have hover settings. 
+
+> Before continuing with the next task on the list, I will add new buttons to the theme layout, so the main background
+> can be changed as well. The new buttons have been added, so now the user is able to edit the color of the main background. 
+> I also made some small tweaks to the color selector, so that it has a hover effect in each color.
+
+
+# July 22, 2026
+
+# Details
+
+
+- Make the buttons on the theme selection appear selected [x]
+- Change buttons to rectangles on the theme selection page [x]
+
+  - Use the code below for animations (use the opacity and scale as well) (animate everything ) [x]
+```
+background: Rectangle 
+{
+    color: control.down ? "#333333" : (control.hovered ? "#444444" : "#222222")
+    
+    Behavior on color 
+    {
+        ColorAnimation { duration: 150 }
+    }
+}
+```
+
+> For now, there are no more issues with the MP3. If anything appears, it will take priority over anything else.
+
+---
+
+## Quick Reference: `Easing.type` Choices for Buttons
+
+|      Easing Type       |               Feel / Effect                |         Recommended Use          |
+|:----------------------:|:------------------------------------------:|:--------------------------------:|
+|  **`Easing.OutBack`**  | Snappy with a slight "bounce" or overshoot |      Scale / Pop-in effects      |
+| **`Easing.InOutQuad`** |    Smooth acceleration and deceleration    |   Color & Opacity transitions    |
+| **`Easing.OutCubic`**  |   Fast start with a very smooth slowdown   |   Sliding elements or drawers    |
+|  **`Easing.Linear`**   |      Constant speed (no acceleration)      | Progress bars / Loading spinners |
+---
+
+> An issue I had forgotten about the MP3 is that the list, when scrolled, it moves to quickly and skips some of the 
+> sections / contents.
+
+
+# July 23, 2026
+
+## Details
+
+> I will issue a new to do listy for the different details that are yet to be completed:
+
+- Finish all the details of the MP3 and have it 100% completed (fix the song list scroll) [x] (for now)
+
+
+> Since the list of audios was giving me multiple issues, I decided to postpone it for the future and for now, there will be
+> a popup screen with the list of audios. For now, there are small details that need to be checked while regarding the
+> animation of the buttons.
+
+> Also, I need to make sure that the color, icon, and font that is selected are stored in the json file as well, making
+> sure that they are saved in the current page. This way, each page can have their own colors.
+
+# July 24, 2026
+
+## Details
+
+> So, the song list has been completed and fixed. As of now, the only thing that can be added is the manual list in which
+> you always have at least 1 song visible, but it will be done after other areas are covered.
+
+> The next area that will be covered is the contents area of the assignments.
+
+# July 25, 2026
+
+## Time
+
+> the best way of creating these types of formulas is writing down the values, looking at what they have in common, 
+> and derive an equation that takes everything into consideration.
+
+> Most of the focus was on fixing the time selector, since it caused many issues when using the tumbler or combobox. 
+> I moved on to using a combination of abstract buttons, popups, and listviews. With this, it is easier to maintain and
+> select the wanted hour. Next step is to focus on the saving function, since there needs to be a way of putting the
+> three time variables (hour, minute, time period) in a single variable, so that it is saved in the json file.
+
+# July 26, 2026
+
+## Time
+
+> The time picker has been completed, and it is fully functional, saving the selected time to the json file. 
+> Now, I will focus on fixing the other details on the UI, like fonts.
+
+- Finish the contents of the assignments
+- Fix small details on the preview layout 
+- Option for changing the color of the fonts [x]
+- Use `click()` for connectin the keyboard keys to functions (creating shortcuts)
+- Make the default color templates of the app
+- Complete the middle section by giving it a good formatting
+
+> Now the UI is connected in two font colors, one for the titles and one for the information.
+
+
+# July 27, 2026
+
+## Class Details
 
 > 

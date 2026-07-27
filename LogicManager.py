@@ -43,10 +43,10 @@ class QMLManager (QObject):
         self.clockTimer.setInterval(1000)
         self.clockTimer.timeout.connect(self.clock)
 
-        self.colorsSelected = {"Main Background": "#16213e", "Border Color": "White",
-                               "Info Rectangle": "black", "Buttons": "blue", "Clock": "#16213e",
-                               "MP3 Slider": "red", "MP3 Slider Background": "black", "iconFolder": "Cascade"}
-
+        self.colorsSelected = {"General Background": "#16213e", "Main Background": "black","Border Color": "White",
+                               "Rectangle Info": "red", "Buttons": "blue", "Clock": "#16213e",
+                               "MP3 Colors": "red", "Icon Folder": "Full","Font": "PixelifySans-Medium.ttf",
+                               "Title Font": "white", "Info Font": "white"}
 
 
 
@@ -77,7 +77,7 @@ class QMLManager (QObject):
     #When the song is pressed, the name is passed and then looked for
     @Slot(str, str)
     def loadSongs(self, songName, songPosition):
-
+        self.audio.playing = True
         print(f"SONG POSITION: {songPosition}")
 
         if not self.audio.buttonPermissions:
@@ -216,6 +216,7 @@ class QMLManager (QObject):
     @Slot(str)
     def saveTime(self, time):
         self.info[self.currentPage]["Assignments"][self.assignmentIndex]["time"] = time
+        print(time)
 
         self.files.SAVE()
 
@@ -252,7 +253,10 @@ class QMLManager (QObject):
     def clock(self):
         self.updateClock.emit()
 
-
+    @Property(dict, notify=updateColors)
+    def sendingColors(self):
+        print("sending colors!!!")
+        return self.colorsSelected
 
 
     @Slot(str, str)
@@ -260,20 +264,6 @@ class QMLManager (QObject):
         self.colorsSelected[currentOption] = color
         print(self.colorsSelected)
         self.updateColors.emit()
-
-
-
-
-
-    @Property(dict, notify=updateColors)
-    def sendingColors(self):
-        print("sending colors")
-        return self.colorsSelected
-
-
-
-
-
 
 
 
@@ -332,16 +322,16 @@ class musicFilesManager:
         # Open the window for selecting the wanted file. There will be a filter for showing only the MP3 files, but there
         # is also an option  for all files
         filepath = filedialog.askopenfilename(filetypes=(("Mp3 Files", "*.Mp3"), ("all files", "*.*")))
+        if filepath:
+            # Use split for separating the path from the title name. It starts reading from right to left. It makes a split
+            # when it finds the first '/'. After finding the first one, it stops. Now it contains two index, 0 (being the
+            # path) and 1 (being the title). We select 0 and store the file path.
+            path = (filepath.rsplit("/", 1)[0] + '/')
 
-        # Use split for separating the path from the title name. It starts reading from right to left. It makes a split
-        # when it finds the first '/'. After finding the first one, it stops. Now it contains two index, 0 (being the
-        # path) and 1 (being the title). We select 0 and store the file path.
-        path = (filepath.rsplit("/", 1)[0] + '/')
-
-        # Similar to the path, except this one starts splitting from the left.
-        name = str(filepath.split("/")[-1])
-        print(f"Filename: {name} | Path: {path}")
-        self.fileControl(path, name)
+            # Similar to the path, except this one starts splitting from the left.
+            name = str(filepath.split("/")[-1])
+            print(f"Filename: {name} | Path: {path}")
+            self.fileControl(path, name)
 
     #When pressing the "add song" button
     def fileControl(self, sourceDir, fileName):

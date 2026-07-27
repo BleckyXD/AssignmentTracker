@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion.">
+    <list default="true" id="24cdac7f-7b1d-4a7b-9452-72fb75806799" name="Changes" comment="Update after a while, showing minor progress in details">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" beforeDir="false" afterPath="$PROJECT_DIR$/.qtcreator/project.pyproject.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/ColorManagement.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/ColorManagement.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/PageAdded.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/DetailPages/PageAdded.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/LeftSide/LeftRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/MiddleSide/MiddleRectangle.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/MainBase/RightSide/RightRectangle.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/main.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/settingsLoad/ThemeManagement.qml" beforeDir="false" afterPath="$PROJECT_DIR$/App/settingsLoad/ThemeManagement.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LogicManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentData.json" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report/scratch_1.md" beforeDir="false" afterPath="$PROJECT_DIR$/Report/scratch_1.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/songData.json" beforeDir="false" afterPath="$PROJECT_DIR$/songData.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +42,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/BleckyXD/AssignmentTracker.git&quot;,
-    &quot;accountId&quot;: &quot;f453d6c9-0d57-424b-a650-2a9d56e00e68&quot;
+    &quot;accountId&quot;: &quot;381ac3b1-416a-4194-9218-58dc661515db&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -220,7 +222,23 @@
       <option name="project" value="LOCAL" />
       <updated>1782516195376</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update after a while, showing minor progress in details">
+      <option name="closed" value="true" />
+      <created>1783782753367</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1783782753368</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update after a while, showing minor progress in details">
+      <option name="closed" value="true" />
+      <created>1783782870759</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1783782870759</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,7 +246,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -243,6 +273,7 @@
     <MESSAGE value="Progress has been made. Changed to SwipeView and not working on load and save logic" />
     <MESSAGE value="NEW CHANGES" />
     <MESSAGE value="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion." />
-    <option name="LAST_COMMIT_MESSAGE" value="Tremendous Progress has been accomplished. Each step is taking me closer and closer to completion." />
+    <MESSAGE value="Update after a while, showing minor progress in details" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update after a while, showing minor progress in details" />
   </component>
 </project>

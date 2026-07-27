@@ -1,4 +1,5 @@
-import QtQuick
+import QtQuick 6.0
+import QtQuick.Effects
 import QtQuick.Layouts
 import QtQuick.Shapes
 import QtQuick.Controls
@@ -8,11 +9,13 @@ Rectangle
     Layout.fillWidth: true
     Layout.fillHeight: true
     color: "transparent"
+    property int currentSongIndex: 0
 
     ColumnLayout
     {
+        id: rightAreaRectangle
         anchors.fill: parent
-        spacing: 12
+        spacing: 10
 
         Rectangle
         {
@@ -25,6 +28,7 @@ Rectangle
             border.color:globalTheme.borderColor
             Text
             {
+                font.family: globalTheme.font
                 text: f.clockUpdate
                 color: "white"
                 font.pixelSize: 40
@@ -35,7 +39,7 @@ Rectangle
         Rectangle
         {
             Layout.fillWidth: true
-            Layout.preferredHeight:160
+            Layout.preferredHeight:175
             color: globalTheme.backgroundRectangleMain
             border.color: globalTheme.borderColor
             border.width: 3
@@ -45,293 +49,447 @@ Rectangle
             ColumnLayout
             {
                 anchors.fill: parent
-                anchors.margins: 3
                 spacing: 5
+                anchors.margins: 4
 
-                // AbstractButton
-                // {
-                //     height: 20
-                //     Layout.fillWidth: true
-                //     background: Rectangle
-                //     {
-                //         color: "black"
-                //         radius: 8
-                //     }
-                // }
                 Rectangle
                 {
-                    Layout.fillHeight: true
+                    height: 50
+                    color: "black"
                     Layout.fillWidth: true
-                    color: globalTheme.backgroundRectangleMain
-                    radius: 8
-
-                    ColumnLayout
+                    Text
                     {
-                        anchors.fill: parent
-                        anchors.margins: 4
+                        id: currentFile
+                        font.family: globalTheme.font
+                        anchors.centerIn: parent
+                        // text:songListView.model[songListView.currentIndex]
 
-                        //CHANGE TO RECTANGLE
-                        AbstractButton
+
+                        font.pixelSize: 18
+                        color: globalTheme.infoFont
+                    }
+                }
+                AbstractButton
+                {
+                    id: addFile
+                    height: 25
+                    width: 80
+                    scale: addFile.down ? 0.8 : (addFile.hovered ? 1.0 : 0.9)
+
+                    Layout.alignment: Qt.AlignHCenter
+                    background: Rectangle
+                    {
+                        color:addFile.down ? Qt.lighter(globalTheme.buttons, 0.5) : (addFile.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                        radius: height/2
+                        border.color: globalTheme.borderColor
+                        Behavior on color
                         {
-                            id: openSongList
-                            height: 50
-
-                            Layout.fillWidth: true
-                            background: Rectangle
+                            ColorAnimation
                             {
-                                color: "black"
-                            }
-
-                            Text
-                            {
-                                anchors.centerIn: parent
-                                text: songListView.model[songListView.currentIndex]
-                                color: "white"
-                            }
-                        }
-                        AbstractButton
-                        {
-                            height: 25
-                            width: 80
-
-                            Layout.alignment: Qt.AlignHCenter
-                            background: Rectangle
-                            {
-                                color: "white"
-                                radius: height/2
-                            }
-
-                            Text
-                            {
-                                anchors.centerIn: parent
-                                text: "Add Song..."
-                                color: "black"
-                            }
-                            onPressed:
-                            {
-                                f.openFile()
-                            }
-                        }
-                        Rectangle
-                        {
-                            height:15
-                            width: 45
-                            color: "transparent"
-                            // Layout.fillWidth: true
-                            // Layout.fillHeight: true
-                            Layout.alignment: Qt.AlignRight
-                            Row
-                            {
-                                anchors.bottom: parent.bottom
-                                anchors.right: parent.right
-                                Text
-                                {
-                                    id: movingTime
-                                    text: f.getMusicTime
-                                    color: "white"
-                                }
-                                Text
-                                {
-
-                                    text: "/"
-                                    color: "white"
-                                }
-                                Text
-                                {
-                                    id: totalTime
-                                    text: f.songDuration
-                                    color: "white"
-                                }
-                            }
-                        }
-                        Slider
-                        {
-                            id:musicTime
-                            from: 0
-                            to: f.msDuration
-                            value: f.slideBar
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 5
-                            Layout.alignment: Qt.AlignHCenter
-                            enabled: f.updatePermission
-
-                            onPressedChanged:
-                            {
-                                if (musicTime.pressed) {}
-                                else
-                                {
-                                    f.continueTimer()
-                                }
-                            }
-                            onPositionChanged:
-                            {
-                                if(musicTime.pressed)
-                                {
-                                    f.sliderCurrentTime(musicTime.value)
-                                }
-                            }
-
-
-                            handle: Rectangle
-                            {
-                                height: 12
-                                width: 12
-                                radius: height/2
-                                x: musicTime.leftPadding + musicTime.visualPosition * (musicTime.availableWidth - width)
-                                y: musicTime.topPadding + (musicTime.availableHeight - height) / 2
-                                color: globalTheme.mp3Slider
-                            }
-                            background: Rectangle
-                            {
-                                x: musicTime.leftPadding
-                                y: musicTime.topPadding + (musicTime.availableHeight - height) / 2
-                                implicitWidth: 200
-                                implicitHeight: 5
-                                width: musicTime.availableWidth
-                                height: implicitHeight
-                                radius: 3
-                            }
-                            Rectangle
-                            {
-                                color: globalTheme.sliderBackground
-                                height: parent.height
-                                radius: parent.radius
-                                width: musicTime.visualPosition * parent.width
-                            }
-                        }
-                        RowLayout
-                        {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 45
-                            Layout.alignment: Qt.AlignHCenter
-                            // enabled: f.updatePermission
-                            AbstractButton
-                            {
-                                height: 15
-                                width: 30
-                                background: Rectangle
-                                {
-                                    color: globalTheme.buttons
-                                    radius: height / 2
-                                }
-                                onPressed:
-                                {
-                                    if (songListView.currentIndex > 0)
-                                    {
-                                        songListView.currentIndex -=1
-                                        f.loadSongs(songListView.model[songListView.currentIndex], songListView.currentIndex)
-                                    }
-                                }
-                            }
-                            AbstractButton
-                            {
-                                id:playpause
-                                height: 30
-                                width: 30
-                                icon.source: `../../iconTemplates/${globalTheme.iconFolder}/PlayIcon`
-                                background: Rectangle
-                                {
-                                    color:
-                                    {
-                                        playpause.down ? "blue" : "transparent"
-                                    }
-                                    radius: height / 2
-                                    Image {
-                                        // id: rightArrowIcon
-                                        source: playpause.icon.source
-                                        sourceSize.width: playpause.width
-                                        sourceSize.height: playpause.height
-                                        anchors.centerIn: parent
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                    ColorOverlay
-                                    {
-                                        anchors.fill: playpause
-                                        source: playpause
-
-                                        color: playpause.down ? "green" : globalTheme.borderColor
-                                    }
-                                }
-
-                                onPressed:
-                                {
-                                    f.playPause()
-                                }
-
-                            }
-                            AbstractButton
-                            {
-                                height: 15
-                                width: 30
-
-                                background: Rectangle
-                                {
-                                    color: globalTheme.buttons
-                                    radius: height / 2
-                                }
-                                onPressed:
-                                {
-                                    if (songListView.currentIndex < songListView.count - 1)
-                                    {
-                                        songListView.currentIndex +=1
-                                        f.loadSongs(songListView.model[songListView.currentIndex], songListView.currentIndex)
-                                    }
-                                }
+                                duration: 120
+                                easing.type: Easing.InOutQuad
                             }
                         }
 
                     }
-                }
 
+                    Text
+                    {
+                        font.family: globalTheme.font
+                        anchors.centerIn: parent
+                        text: "Add MP3..."
+                        color: globalTheme.infoFont
+                    }
+                    onReleased:
+                    {
+                        f.openFile()
+                    }
+                    Behavior on scale
+                    {
+                        NumberAnimation
+                        {
+                            duration: 200
+                            easing.type: Easing.OutBack // Adds a little "bounce" effect
+                        }
+                    }
+                }
+                RowLayout
+                {
+
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignRight
+
+                    Text
+                    {
+                        font.family: globalTheme.font
+
+                        id: movingTime
+                        text: f.getMusicTime
+                        color: globalTheme.infoFont
+                    }
+                    Text
+                    {
+                        font.family: globalTheme.font
+
+                        text: "/"
+                        color: globalTheme.infoFont
+                    }
+                    Text
+                    {
+                        font.family: globalTheme.font
+                        id: totalTime
+                        text: f.songDuration
+                        color: globalTheme.infoFont
+                    }
+                }
+                Slider
+                {
+                    id:musicTime
+                    from: 0
+                    to: f.msDuration
+                    value: f.slideBar
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 5
+                    Layout.alignment: Qt.AlignHCenter
+                    enabled: f.updatePermission
+
+
+                    onPressedChanged:
+                    {
+                        if (musicTime.pressed) {}
+                        else
+                        {
+                            f.continueTimer()
+                        }
+                    }
+                    onPositionChanged:
+                    {
+                        if(musicTime.pressed)
+                        {
+                            f.sliderCurrentTime(musicTime.value)
+                        }
+                    }
+
+
+                    handle: Rectangle
+                    {
+                        height: 12
+                        width: 12
+                        radius: height/2
+                        x: musicTime.leftPadding + musicTime.visualPosition * (musicTime.availableWidth - width)
+                        y: musicTime.topPadding + (musicTime.availableHeight - height) / 2
+                        color: globalTheme.mp3Color
+                    }
+                    background: Rectangle
+                    {
+                        x: musicTime.leftPadding
+                        y: musicTime.topPadding + (musicTime.availableHeight - height) / 2
+                        implicitWidth: 200
+                        implicitHeight: 5
+                        width: musicTime.availableWidth
+                        height: implicitHeight
+                        radius: 3
+                        opacity: !enabled ? 0.5 : 1.0
+                    }
+                    Rectangle
+                    {
+                        color: Qt.lighter(globalTheme.mp3Color, 0.4)
+                        height: parent.height
+                        radius: parent.radius
+                        width: musicTime.visualPosition * parent.width
+                    }
+                }
+                Rectangle
+                {
+                    Layout.preferredHeight: 35
+                    Layout.preferredWidth: 140
+                    radius: 4
+                    color: globalTheme.buttons
+                    Layout.alignment: Qt.AlignHCenter
+                    RowLayout
+                    {
+
+                        anchors.centerIn: parent
+                        spacing: 6
+                        // enabled: f.updatePermission
+
+
+                        AbstractButton
+                        {
+                            id: skipLeft
+                            height: 30
+                            width: 40
+                            scale: skipLeft.down ? 0.8 : (skipLeft.hovered ? 1.0 : 0.9)
+                            hoverEnabled: enabled
+                            opacity: !enabled ? 0.5 : 1.0
+                            icon.source: `../../iconTemplates/${globalTheme.iconFolder}/SkipIcon`
+                            enabled: f.updatePermission
+                            background: Rectangle
+                            {
+
+                                radius: height / 2
+                                color:skipLeft.down ? Qt.lighter(globalTheme.buttons, 0.5) : (skipLeft.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+
+                                Image
+                                {
+                                    source: skipLeft.icon.source
+                                    sourceSize.width: 30
+                                    sourceSize.height: 30
+                                    anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+                                    rotation: 180
+                                }
+                                Behavior on color
+                                {
+                                    ColorAnimation
+                                    {
+                                        duration: 120
+                                        easing.type: Easing.InOutQuad
+                                    }
+                                }
+                            }
+                            onReleased:
+                            {
+                                if (currentSongIndex > 0)
+                                {
+                                    currentSongIndex -=1
+                                    f.loadSongs(listSongs.model[currentSongIndex], currentSongIndex)
+
+
+                                }
+                            }
+                            Behavior on scale
+                            {
+                                NumberAnimation
+                                {
+                                    duration: 200
+                                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                                }
+                            }
+                        }
+                        AbstractButton
+                        {
+                            id:playpause
+                            height: 35
+                            width: 35
+                            scale: playpause.down ? 0.8 : (playpause.hovered ? 1.0 : 0.9)
+                            hoverEnabled: enabled
+                            opacity: !enabled ? 0.5 : 1.0
+                            icon.source: `../../iconTemplates/${globalTheme.iconFolder}/PlayIcon`
+                            enabled: f.updatePermission
+                            background: Rectangle
+                            {
+                                color:playpause.down ? Qt.lighter(globalTheme.buttons, 0.5) : (playpause.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                                radius: height / 2
+                                Image
+                                {
+                                    source: playpause.icon.source
+                                    sourceSize.width: playpause.width
+                                    sourceSize.height: playpause.height
+                                    anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+                                }
+                                Behavior on color
+                                {
+                                    ColorAnimation
+                                    {
+                                        duration: 120
+                                        easing.type: Easing.InOutQuad
+                                    }
+                                }
+                            }
+                            Behavior on scale
+                            {
+                                NumberAnimation
+                                {
+                                    duration: 200
+                                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                                }
+                            }
+
+                            onReleased:
+                            {
+                                f.playPause()
+                            }
+
+                        }
+                        AbstractButton
+                        {
+                            id: skipRight
+                            Layout.preferredHeight: 30
+                             Layout.preferredWidth: 40
+                            scale: skipRight.down ? 0.8 : (skipRight.hovered ? 1.0 : 0.9)
+                            hoverEnabled: enabled
+                            opacity: !enabled ? 0.5 : 1.0
+                            icon.source: `../../iconTemplates/${globalTheme.iconFolder}/SkipIcon`
+                            enabled: f.updatePermission
+                            background: Rectangle
+                            {
+                                anchors.fill: parent
+                                color:skipRight.down ? Qt.lighter(globalTheme.buttons, 0.5) : (skipRight.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                                radius: height / 2
+                                Behavior on color
+                                {
+                                    ColorAnimation
+                                    {
+                                        duration: 120
+                                        easing.type: Easing.InOutQuad
+                                    }
+                                }
+                                Image
+                                {
+                                    // id: rightArrowIcon
+                                    source: skipRight.icon.source
+                                    sourceSize.width: 30
+                                    sourceSize.height: 30
+                                    anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+                                }
+                            }
+                            onReleased:
+                            {
+                                if (currentSongIndex < listSongs.count - 1)
+                                {
+                                    currentSongIndex +=1
+                                    f.loadSongs(listSongs.model[currentSongIndex], currentSongIndex)
+                                }
+                            }
+                            Behavior on scale
+                            {
+                                NumberAnimation
+                                {
+                                    duration: 200
+                                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         Rectangle
         {
             Layout.fillWidth: true
-            Layout.preferredHeight: 140
+            Layout.preferredHeight: 60
             color: globalTheme.backgroundRectangleMain
             border.width: 3
             border.color: globalTheme.borderColor
             radius: 8
             clip: true
-
-
-            ListView
+            ColumnLayout
             {
-                id:songListView
-                anchors.fill: parent
-                clip: true
-                model: f.musicList
-
                 anchors.margins: 15
-                spacing: 5
+                anchors.fill: parent
+                // ListView
+                // {
+                //     id:songListView
+                //     Layout.fillWidth: true
+                //     Layout.fillHeight: true
+                //     clip: true
+                //     model: f.musicList
+                //     highlightRangeMode: ListView.NoHighlightRange
 
-                highlightRangeMode: ListView.NoHighlightRange
-                snapMode: ListView.NoSnap
-                boundsBehavior: Flickable.StopAtBounds
 
-                maximumFlickVelocity: 0
-                delegate: AbstractButton
+                //     spacing: 5
+
+                //     // highlightRangeMode: ListView.NoHighlightRange
+                //     // snapMode: ListView.NoSnap
+                //     boundsBehavior: Flickable.StopAtBounds
+                //     interactive: false
+                //     highlightMoveDuration: 180
+
+
+                //     delegate: AbstractButton
+                //     {
+                //         id: song
+                //         width: ListView.view.width
+                //         scale: song.down ? 0.8 : (song.hovered ? 1.0 : 0.98)
+                //         hoverEnabled: true
+                //         height: 50
+                //         Text
+                //         {
+                //             font.family: globalTheme.font
+                //             // text: modelData.audio
+                //             text: modelData
+                //             color: "white"
+                //             anchors.centerIn: parent
+                //         }
+                //         background: Rectangle
+                //         {
+
+                //             color: song.down ? Qt.lighter(globalTheme.rectangleInfoColor, 0.5) : (song.hovered ? Qt.lighter(globalTheme.rectangleInfoColor, 1.5) : globalTheme.rectangleInfoColor)
+                //             radius: 8
+                //             Behavior on color { ColorAnimation { duration: 100 } }
+                //         }
+                //         onReleased:
+                //         {
+                //             f.loadSongs(modelData, index)
+                //             songListView.currentIndex = index
+                //         }
+                //         Behavior on scale
+                //         {
+                //             NumberAnimation
+                //             {
+                //                 duration: 200
+                //                 easing.type: Easing.OutBack // Adds a little "bounce" effect
+                //             }
+                //         }
+                //     }
+                //     WheelHandler {
+                //         onWheel: (wheel) => {
+                //             // Height of one item (50) + spacing (5) = 55px per scroll step
+                //             let step = 55
+
+                //             if (wheel.angleDelta.y < 0) {
+                //                 // Scroll Down
+                //                 songListView.contentY = Math.min(
+                //                     songListView.contentHeight - songListView.height,
+                //                     songListView.contentY + step
+                //                 )
+                //             } else if (wheel.angleDelta.y > 0) {
+                //                 // Scroll Up
+                //                 songListView.contentY = Math.max(0, songListView.contentY - step)
+                //             }
+                //         }
+                //     }
+                // }
+
+                AbstractButton
                 {
-                    id: song
-                    width: parent.width
-                    height: 50
-                    Text
-                    {
-                        // text: modelData.audio
-                        text: modelData
-                        color: "white"
-                        anchors.centerIn: parent
-                    }
+                    id: songListOpen
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.preferredHeight:30
+                    scale: songListOpen.down ? 0.8 : (songListOpen.hovered ? 1.0 : 0.98)
+                    Layout.fillWidth: true
                     background: Rectangle
                     {
-                        color: song.down ? "white" : "blue"
-                        radius: 8
+                        color: songListOpen.hovered ? Qt.lighter(globalTheme.buttons, 1.4)
+                                             : globalTheme.buttons
+                        radius: 6
+                        Behavior on color { ColorAnimation { duration: 100 } }
                     }
-                    onPressed:
+                    contentItem: Text
                     {
-                        f.loadSongs(modelData, index)
-                        songListView.currentIndex = index
+                        text: "MP3 List"
+                        color: globalTheme.infoFont
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: globalTheme.font
+                    }
+
+                    onClicked:
+                    {
+
+                        audioListPopup.open()
+                    }
+                    Behavior on scale
+                    {
+                        NumberAnimation
+                        {
+                            duration: 200
+                            easing.type: Easing.OutBack // Adds a little "bounce" effect
+                        }
                     }
                 }
             }
@@ -348,177 +506,147 @@ Rectangle
             ColumnLayout
             {
                 anchors.fill: parent
-                anchors.margins: 6
-                // Rectangle
-                // {
-                //     Layout.preferredHeight: 35
-                //     Layout.fillWidth: true
-                //     radius: 8
-                //     color: "transparent"
-                //     border.width: 3
-                //     border.color: globalTheme.borderColor
-                //     Text
-                //     {
-                //         text: "Controls"
-                //         font.pixelSize: 25
-                //         anchors.centerIn: parent
+                anchors.margins: 8
 
-                //     }
-                // }
-                RowLayout
+                Rectangle
                 {
+                    Layout.preferredHeight: 60
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.margins: 6
-
-                    AbstractButton
+                    color: globalTheme.buttons
+                    radius: 8
+                    RowLayout
                     {
-                        id: pageLeftButton
-                        Layout.preferredWidth: 50
-                        Layout.preferredHeight: 50
-                        icon.source: `../../iconTemplates/${globalTheme.iconFolder}/ArrowIcon`
+                        anchors.fill: parent
+                        anchors.margins: 6
 
-                        background: Rectangle
+                        AbstractButton
                         {
-                            radius: width / 2
+                            id: pageLeftButton
+                            Layout.preferredWidth: 50
+                            Layout.preferredHeight: 50
+                            scale: pageLeftButton.down ? 0.8 : (pageLeftButton.hovered ? 1.0 : 0.9)
 
-                            color: pageLeftButton.pressed ? "#20ffffff" : "transparent"
-                            scale: pageLeftButton.pressed ? 0.9 : 1.0
-                            border.color: pageLeftButton.pressed ? "green": "transparent"
-                            Image {
-                                // id: rightArrowIcon
-                                source: pageLeftButton.icon.source
-                                sourceSize.width: pageLeftButton.width
-                                sourceSize.height: pageLeftButton.height
-                                anchors.centerIn: parent
-                                fillMode: Image.PreserveAspectFit
-                                rotation: 180
+                            icon.source: `../../iconTemplates/${globalTheme.iconFolder}/ArrowIcon`
 
-                            }
-                            ColorOverlay
+                            background: Rectangle
                             {
-                                anchors.fill: pageLeftButton
-                                source: pageLeftButton
+                                radius: width / 2
+                                color:pageLeftButton.down ? Qt.lighter(globalTheme.buttons, 0.5) : (pageLeftButton.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                                Behavior on color { ColorAnimation { duration: 120 } }
+                                Image
+                                {
+                                    source: pageLeftButton.icon.source
+                                    sourceSize.width: pageLeftButton.width
+                                    sourceSize.height: pageLeftButton.height
+                                    anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+                                    rotation: 180
 
-                                color: pageLeftButton.down ? "green" : globalTheme.borderColor
+                                }
+
                             }
-                        }
-
-                        // Shape
-                        // {
-                        //     anchors.fill: parent
-                        //     antialiasing: true
-
-                        //     ShapePath
-                        //     {
-                        //         strokeColor: "black"
-                        //         strokeWidth: 4
-                        //         fillColor: "transparent"
-                        //         capStyle: ShapePath.RoundCap // Makes the ends round instead of square
-                        //         joinStyle: ShapePath.RoundJoin // Smoothes the "V" joint
-                        //         startX: 30; startY: 10
-                        //         PathLine { x:15 ; y:25 }
-                        //         PathLine { x:30 ; y:40 }
-                        //         // PathLine { x:40 ; y:15 }
-
-                        //     }
-                        // }
-                        onClicked:
-                        {
-                            if (view.currentIndex > 0)
+                            onClicked:
                             {
-                                view.currentIndex--
-                            }
-                        }
-                        Behavior on scale
-                        {
-                            NumberAnimation
-                            {
-                                duration: 100
-                                easing.type: Easing.OutBack // Adds a little "bounce" effect
-                            }
-                        }
-                    }
-
-                    AbstractButton
-                    {
-                        id: pageRightButton
-                        Layout.preferredWidth: 50
-                        Layout.preferredHeight: 50
-                        icon.source: `../../iconTemplates/${globalTheme.iconFolder}/ArrowIcon`
-                        Layout.alignment: Qt.AlignLeft
-
-                        background: Rectangle
-                        {
-                            radius: width / 2
-
-                            color: pageRightButton.down ? "#20ffffff" : "transparent"
-                            scale: pageRightButton.down ? 0.9 : 1.0
-                            border.color: pageRightButton.down ? "green" : "transparent"
-                            Image
-                            {
-                                source: pageRightButton.icon.source
-                                sourceSize.width: pageRightButton.width
-                                sourceSize.height: pageRightButton.height
-                                anchors.centerIn: parent
-                                fillMode: Image.PreserveAspectFit
-                            }
-
-                            ColorOverlay {
-                                anchors.fill: pageRightButton
-                                source: pageRightButton
-
-                                color: pageRightButton.down ? "green" : globalTheme.borderColor
+                                if (view.currentIndex > 0)
+                                {
+                                    view.currentIndex--
+                                }
                             }
                             Behavior on scale
                             {
                                 NumberAnimation
                                 {
-                                    duration: 100
-                                    easing.type: Easing.OutBack
+                                    duration: 200
+                                    easing.type: Easing.OutBack // Adds a little "bounce" effect
                                 }
                             }
                         }
-                        onClicked:
-                        {
-                            if (view.currentIndex < view.count - 1)
-                            {
-                                view.currentIndex++
-                            }
-                        }
-                        Behavior on scale
-                        {
-                            NumberAnimation
-                            {
-                                duration: 100
-                                easing.type: Easing.OutBack // Adds a little "bounce" effect
-                            }
-                        }
-                    }
-                    Item
-                    {
-                        Layout.fillWidth: true
-                    }
-                    AbstractButton
-                    {
-                        id: settingsOpen
-                        height: 45
-                        width: 45
-                        Layout.alignment: Qt.AlignLeft
-                        background: Rectangle
-                        {
-                            color: settingsOpen.down ? "black" : globalTheme.buttons
-                            radius: width / 4
-                            border.color: globalTheme.borderColor
-                            border.width: 3
-                        }
-                        onClicked:
-                        {
-                            settingsLoader.source = "Settings.qml";
-                        }
 
+                        AbstractButton
+                        {
+                            id: pageRightButton
+                            Layout.preferredWidth: 50
+                            Layout.preferredHeight: 50
+                            scale: pageRightButton.down ? 0.8 : (pageRightButton.hovered ? 1.0 : 0.9)
+                            icon.source: `../../iconTemplates/${globalTheme.iconFolder}/ArrowIcon`
+                            Layout.alignment: Qt.AlignLeft
+
+                            background: Rectangle
+                            {
+                                radius: width / 2
+
+                                color:pageRightButton.down ? Qt.lighter(globalTheme.buttons, 0.5) : (pageRightButton.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                                Image
+                                {
+                                    source: pageRightButton.icon.source
+                                    sourceSize.width: pageRightButton.width
+                                    sourceSize.height: pageRightButton.height
+                                    anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+                                }
+                                Behavior on color { ColorAnimation { duration: 120 } }
+                            }
+                            onClicked:
+                            {
+                                if (view.currentIndex < view.count - 1)
+                                {
+                                    view.currentIndex++
+                                }
+                            }
+                            Behavior on scale
+                            {
+                                NumberAnimation
+                                {
+                                    duration: 200
+                                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                                }
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        AbstractButton
+                        {
+                            id: settingsOpen
+                            height: 45
+                            width: 45
+                            scale: settingsOpen.down ? 0.8 : (settingsOpen.hovered ? 1.0 : 0.9)
+                            Layout.alignment: Qt.AlignLeft
+                            icon.source: `../../iconTemplates/${globalTheme.iconFolder}/GearIcon`
+                            background:Rectangle
+                            {
+                                radius: width / 2
+                                color:settingsOpen.down ? Qt.lighter(globalTheme.buttons, 0.5) : (settingsOpen.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                                Behavior on color { ColorAnimation { duration: 120 } }
+                                Image
+                                {
+                                    // id: rightArrowIcon
+                                    source: settingsOpen.icon.source
+                                    sourceSize.width: settingsOpen.width
+                                    sourceSize.height: settingsOpen.height
+                                    anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+                                }
+                            }
+                            onClicked:
+                            {
+                                settingsLoader.source = "Settings.qml";
+                            }
+                            Behavior on scale
+                            {
+                                NumberAnimation
+                                {
+                                    duration: 200
+                                    easing.type: Easing.OutBack // Adds a little "bounce" effect
+                                }
+                            }
+
+                        }
                     }
                 }
+
+
                 AbstractButton
                 {
                     height: 35
@@ -548,17 +676,16 @@ Rectangle
         AbstractButton
         {
             id: creatorButton
-            Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+            Layout.alignment:  Qt.AlignRight
             Layout.preferredWidth: 35
             Layout.preferredHeight: 35
-            scale: creatorButton.pressed ? 0.9 : 1.0
-
+            scale: creatorButton.down ? 0.8 : (creatorButton.hovered ? 1.0 : 0.9)
             icon.source: `../../iconTemplates/${globalTheme.iconFolder}/AddIcon`
             background: Rectangle
             {
                 radius: width / 2
-                color: creatorButton.down ? "#20ffffff" : "transparent"
-                border.color: creatorButton.down ? "green": "transparent"
+                color:creatorButton.down ? Qt.lighter(globalTheme.buttons, 0.5) : (creatorButton.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                Behavior on color { ColorAnimation { duration: 120 } }
                 Image
                 {
                     // id: rightArrowIcon
@@ -567,18 +694,8 @@ Rectangle
                     sourceSize.height: creatorButton.height
                     anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
-
-
-                }
-                ColorOverlay
-                {
-                    anchors.fill: creatorButton
-                    source: creatorButton
-
-                    color: creatorButton.down ? "green" : globalTheme.borderColor
                 }
             }
-
             onClicked:
             {
                 generalPages.append({})
@@ -588,63 +705,109 @@ Rectangle
             {
                 NumberAnimation
                 {
-                    duration: 100
+                    duration: 200
                     easing.type: Easing.OutBack // Adds a little "bounce" effect
                 }
             }
-
         }
     }
-    // Popup
-    // {
-    //     id: songList
-    //     parent: openSongList
+    Popup {
+        id: audioListPopup
+        width: rightAreaRectangle.width
+        height: rightAreaRectangle.height
+        anchors.centerIn: parent
+        parent: Overlay.overlay
 
-    //     x: 0
-    //     y: 0
-    //     z: 50
+        modal: true
+        focus: true
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
-    //     width: parent.width
-    //     height: 300
+        // Dim the background behind the popup
+        Overlay.modal: Rectangle
+        {
+            color: "#AA000000"
+        }
 
-        // ListView
-        // {
-        //     id:songListView
-        //     anchors.fill: parent
-        //     clip: true
+        // Smooth fade in/out transition
+        enter: Transition {
+            NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: 200 }
+        }
+        exit: Transition {
+            NumberAnimation { property: "opacity"; from: 1.0; to: 0.0; duration: 150 }
+        }
 
-        //     model: f.musicList
+        background: Rectangle
+        {
+            color: globalTheme.backgroundRectangleMain
+            border.color: globalTheme.borderColor
+            border.width: 2
+            radius: 12
+        }
 
-        //     spacing: 5
+        contentItem: ColumnLayout
+        {
+            spacing: 10
 
-        //     highlightRangeMode: ListView.ApplyRange
-        //     snapMode: ListView.NoSnap
-        //     boundsBehavior: Flickable.StopAtBounds
+            Text
+            {
+                text: "All Tracks"
+                color: "white"
+                font.family: globalTheme.font
+                font.pixelSize: 18
+                Layout.alignment: Qt.AlignHCenter
+            }
 
-        //     maximumFlickVelocity: 0
-        //     delegate: AbstractButton
-        //     {
-        //         id: song
-        //         width: parent.width
-        //         height: 50
-        //         Text
-        //         {
-        //             // text: modelData.audio
-        //             text: modelData
-        //             color: "white"
-        //             anchors.centerIn: parent
-        //         }
-        //         background: Rectangle
-        //         {
-        //             color: song.down ? "white" : "blue"
-        //         }
-        //         onPressed:
-        //         {
-        //             f.loadSongs(modelData, index)
-        //         }
-        //     }
-        // }
+            // Scrollable view containing all audio tracks
+            ScrollView
+            {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                Grid
+                {
+                    columns: 1
+                    spacing: 8
+                    anchors.centerIn: parent
+                    Repeater
+                    {
+                        id: listSongs
+                        model: f.musicList
 
-    // }
+                        delegate: AbstractButton
+                        {
+                            width: rightAreaRectangle.width - 25
+                            height: 50
+
+                            contentItem: Text
+                            {
+                                text: modelData
+                                color: globalTheme.infoFont
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                wrapMode: Text.WordWrap
+                                font.family: globalTheme.font
+                            }
+
+                            background: Rectangle
+                            {
+                                color: parent.hovered ? Qt.lighter(globalTheme.rectangleInfoColor, 1.4)
+                                                     : globalTheme.rectangleInfoColor
+                                radius: 6
+                            }
+
+                            onReleased:
+                            {
+                                currentFile.text = modelData
+                                currentSongIndex =index
+                                f.loadSongs(modelData, index)
+                                audioListPopup.close()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 

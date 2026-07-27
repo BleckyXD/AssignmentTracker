@@ -11,12 +11,12 @@ Item
 
     property var choiceOfColors: f.sendingColors
 
-    property color backgroundRectangleMain: choiceOfColors["Main Background"]
-    property color backgroundRectangleSecondary: choiceOfColors["Secondary Background"]
+    property color backgroundRectangleMain: choiceOfColors["General Background"]
+    property color mainBackground: choiceOfColors["Main Background"]
+
+
     property color borderColor: choiceOfColors["Border Color"]
-    property color rectangleInfoColor: choiceOfColors["Info Rectangle"]
-    // property color movingPagesButton: choiceOfColors["Change Page Buttons"]
-    // property color creationButtons: choiceOfColors["Create Pages Button"]
+    property color rectangleInfoColor: choiceOfColors["Rectangle Info"]
 
     property color buttons: choiceOfColors["Buttons"]
 
@@ -24,11 +24,22 @@ Item
 
     property color clockColor: choiceOfColors["Clock"]
 
-    property color mp3Slider: choiceOfColors["MP3 Slider"]
-    property color sliderBackground: choiceOfColors["MP3 Slider Background"]
-    property color mp3Buttons: choiceOfColors["MP3 Buttons"]
 
-    property string iconFolder: choiceOfColors["iconFolder"]
+    property color mp3Color: choiceOfColors["MP3 Colors"]
+
+    property string iconFolder: choiceOfColors["Icon Folder"]
+
+    property color backgroundRectangleSecondary: choiceOfColors["Secondary Background"]
+    FontLoader
+    {
+        id:receivedFont
+        source: `Fonts/${choiceOfColors["Font"]}`
+    }
+
+    property string font: receivedFont.name
+    property color titleFont: choiceOfColors["Title Font"]
+    property color infoFont: choiceOfColors["Info Font"]
+
 }
 
 

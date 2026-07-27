@@ -1,4 +1,5 @@
-import QtQuick
+import QtQuick 6.0
+import QtQuick.Effects
 import QtQuick.Layouts
 import QtQuick.Shapes
 import QtQuick.Controls
@@ -142,32 +143,34 @@ Rectangle
 
                     f.saveAssignmentData(assignmentData)
                 }
-                scale: saveData.down ? 0.9 : 1.0
+                scale: saveData.down ? 0.8 : (saveData.hovered ? 1.0 : 0.9)
                 Layout.preferredWidth: 50
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignCenter
                 icon.source: `../../iconTemplates/${globalTheme.iconFolder}/AddIcon`
+                hoverEnabled: true
                 background: Rectangle
                 {
-                    anchors.fill: parent
-                    color: saveData.down ? "#20ffffff" : globalTheme.buttons
-                    border.color: saveData.down ? "green": "transparent"
+
+                    color:saveData.down ? Qt.lighter(globalTheme.buttons, 0.5) : (saveData.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
+                    //border.color: saveData.down ? "black" : (saveData.hovered ? "white" : globalTheme.borderColor)
                     radius: width / 2
                     Image
                     {
-                        // id: rightArrowIcon
+
                         source: saveData.icon.source
                         sourceSize.width: saveData.width
                         sourceSize.height: saveData.height
                         anchors.centerIn: parent
                         fillMode: Image.PreserveAspectFit
                     }
-                    ColorOverlay
+                    Behavior on color
                     {
-                        anchors.fill: saveData
-                        source: saveData
-
-                        color: saveData.down ? "green" : globalTheme.borderColor
+                        ColorAnimation
+                        {
+                            duration: 120
+                            easing.type: Easing.InOutQuad
+                        }
                     }
 
                 }
@@ -189,7 +192,7 @@ Rectangle
                 {
                     NumberAnimation
                     {
-                        duration: 100
+                        duration: 200
                         easing.type: Easing.OutBack // Adds a little "bounce" effect
                     }
                 }

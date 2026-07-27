@@ -1,4 +1,5 @@
-import QtQuick
+import QtQuick 6.0
+import QtQuick.Effects
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Shapes
@@ -26,11 +27,11 @@ Rectangle
                     color: "transparent"
                 }
             }
-
+            font.family: globalTheme.font
             text: "Class Title"
             font.pixelSize: 30
             font.bold: true
-            color: "white"
+            color: globalTheme.titleFont
             Layout.alignment: Qt.AlignHCenter // Centers the text in the column
             onActiveFocusChanged:
             {
@@ -66,25 +67,27 @@ Rectangle
                 anchors.fill: parent
                 Text
                 {
+                    font.family: globalTheme.font
                     text: "Class Details"
-                    color: "white"
-                    font.pixelSize: 25
+                    color: globalTheme.titleFont
+                    font.pixelSize: 24
                     Layout.leftMargin: 4
                 }
                 TextArea
                 {
+                    id: classDetailsInput
+                    font.family: globalTheme.font
                     Layout.leftMargin: 20
                     Layout.rightMargin: 10
                     Layout.bottomMargin: 8
-
+                    textFormat: TextEdit.MarkdownText
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    text: ""
                     placeholderText: "Enter Class Details..."
-                    color: "black"
+                    font.pixelSize: 12
+                    color: globalTheme.infoFont
                     wrapMode: TextArea.Wrap
-
-
+                    text: "# a"
                     background: Rectangle
                     {
 
@@ -124,8 +127,9 @@ Rectangle
                     Layout.fillWidth: true
                     Text
                     {
+                        font.family: globalTheme.font
                         text: "To Do List"
-                        color: "white"
+                        color: globalTheme.titleFont
                         font.pixelSize: 25
                     }
                     AbstractButton
@@ -134,28 +138,27 @@ Rectangle
                         Layout.preferredHeight: 25
                         Layout.preferredWidth: 25
                         icon.source: `../../iconTemplates/${globalTheme.iconFolder}/AddIcon`
-
+                        scale: addToDo.down ? 0.8 : (addToDo.hovered ? 1.0 : 0.9)
                         background: Rectangle
                         {
-                            color: "transparent"
+                            color:addToDo.down ? Qt.lighter(globalTheme.buttons, 0.5) : (addToDo.hovered ? Qt.lighter(globalTheme.buttons, 1.5) : globalTheme.buttons)
                             radius: width / 2
                             Image
                             {
-                                // id: rightArrowIcon
+                                id:toDoIcon
                                 source: addToDo.icon.source
                                 sourceSize.width: addToDo.width
                                 sourceSize.height: addToDo.height
                                 anchors.centerIn: parent
                                 fillMode: Image.PreserveAspectFit
-
-
                             }
-                            ColorOverlay
+                            Behavior on color
                             {
-                                anchors.fill: addToDo
-                                source: addToDo
-
-                                color: addToDo.down ? "green" : globalTheme.borderColor
+                                ColorAnimation
+                                {
+                                    duration: 120
+                                    easing.type: Easing.InOutQuad
+                                }
                             }
                         }
                         onClicked:
@@ -173,6 +176,14 @@ Rectangle
 
                             f.classTodoList(todoData)
 
+                        }
+                        Behavior on scale
+                        {
+                            NumberAnimation
+                            {
+                                duration: 200
+                                easing.type: Easing.OutBack // Adds a little "bounce" effect
+                            }
                         }
                     }
                 }
@@ -212,10 +223,12 @@ Rectangle
                                     // Created pages (found in an external file)
                                     delegate: TextArea
                                     {
+                                        font.family: globalTheme.font
                                         id: todoSelected
                                         width: todoHeightLimit.width
                                         placeholderText: "Enter Task..."
-                                        color: "black"
+                                        color: globalTheme.infoFont
+                                        font.pixelSize: 10
                                         wrapMode: TextArea.Wrap
 
                                         background: Rectangle
@@ -372,4 +385,5 @@ Rectangle
             anchors.horizontalCenter: parent.horizontalCenter
         }
     }
+
 }
